@@ -9,6 +9,7 @@ const TodosWrapper = styled.div`
   display: flex;
   padding: 5px;
   flex-direction: column;
+  width: 100%;
 `;
 
 const todo = () => {
@@ -19,7 +20,7 @@ const todo = () => {
       <div style={{ marginBottom: "20px" }}>
         <TodoForm />
       </div>
-      <TodosWrapper>
+      <TodosWrapper className="todosWrapper">
         {todos.map((post) => (
           <TodoItem key={post.id} post={post} />
         ))}

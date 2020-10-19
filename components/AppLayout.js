@@ -1,7 +1,6 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Link from "next/link";
-
 import { Menu } from "antd";
 
 import Today from "./Today";
@@ -14,7 +13,7 @@ const AppLayout = ({ children }) => {
         <Menu mode="horizontal">
           <Menu.Item>
             <Link href="/">
-              <a>todo</a>
+              <a>today</a>
             </Link>
           </Menu.Item>
           <Menu.Item>
@@ -29,7 +28,7 @@ const AppLayout = ({ children }) => {
           </Menu.Item>
         </Menu>
       </div>
-      <div>{children}</div>
+      <div className="pageWrapper">{children}</div>
     </div>
   );
 };

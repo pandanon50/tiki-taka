@@ -15,9 +15,17 @@ const dummyPost = {
 };
 
 const ADD_POST = "ADD_POST";
+const CHECKED_POST = "CHECKED_POST"; //보류
 
 export const addPost = {
   type: ADD_POST,
+};
+
+export const checkedPost = (id) => {
+  return {
+    type: CHECKED_POST,
+    id,
+  };
 };
 
 const reducer = (state = initialState, action) => {
