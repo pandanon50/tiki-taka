@@ -5,13 +5,11 @@ import Link from "next/link";
 import { Menu } from "antd";
 
 import Today from "./Today";
-import TodoForm from "./TodoForm";
-const today = new Date();
 
 const AppLayout = ({ children }) => {
   return (
     <div>
-      <Today today={today.getDate()} />
+      <Today />
       <div>
         <Menu mode="horizontal">
           <Menu.Item>
@@ -30,9 +28,6 @@ const AppLayout = ({ children }) => {
             </Link>
           </Menu.Item>
         </Menu>
-      </div>
-      <div style={{ marginBottom: "20px" }}>
-        <TodoForm />
       </div>
       <div>{children}</div>
     </div>

@@ -2,12 +2,14 @@ import React from "react";
 import PropTypes from "prop-types";
 import "antd/dist/antd.css";
 
-const App = ({ Component }) => {
+import wrapper from "../store/configureStore";
+
+const ToDoApp = ({ Component }) => {
   return <Component />;
 };
 
-App.propTypes = {
+ToDoApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
 };
 
-export default App;
+export default wrapper.withRedux(ToDoApp);

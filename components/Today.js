@@ -1,17 +1,14 @@
-import React, { useCallback, useState } from "react";
-import Proptypes from "prop-types";
+import React from "react";
 
-const Today = ({ today }) => {
+const today = new Date();
+
+const Today = () => {
   return (
     <div>
       <div>Today`s Schedule</div>
-      <div>{today}</div>
+      <div>{today.getDate()}</div>
     </div>
   );
-};
-
-Today.proptypes = {
-  today: Proptypes.string.isRequired,
 };
 
 export default Today;
