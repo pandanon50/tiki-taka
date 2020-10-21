@@ -2,6 +2,7 @@ import React, { useState, useCallback } from "react";
 import { Form, Input, Button } from "antd";
 import { useDispatch } from "react-redux";
 import { addPost } from "../reducers/post";
+
 const TodoForm = () => {
   const [dos, setDos] = useState("");
   const dispatch = useDispatch();
@@ -11,10 +12,9 @@ const TodoForm = () => {
   }, []);
 
   const onSubmit = useCallback(() => {
-    console.log(dos);
-    dispatch(addPost);
+    dispatch(addPost(dos));
     setDos("");
-  }, []);
+  }, [dos]);
 
   return (
     <Form onFinish={onSubmit}>
@@ -24,7 +24,12 @@ const TodoForm = () => {
         <Input name="dos" value={dos} onChange={onChangeDo} required />
       </div>
       <div>
-        <Button type="primary" htmlType="submit" loading={false}>
+        <Button
+          type="primary"
+          style={{ backgroundColor: "2f54eb" }}
+          htmlType="submit"
+          loading={false}
+        >
           추가
         </Button>
       </div>

@@ -8,17 +8,22 @@ export const initialState = {
   ],
 };
 
-const dummyPost = {
-  id: 2,
-  textValue: "더미데이터",
-  checked: false,
+const dummyPost = (data) => {
+  return {
+    id: 2,
+    textValue: `${data}`,
+    checked: false,
+  };
 };
 
 const ADD_POST = "ADD_POST";
 const CHECKED_POST = "CHECKED_POST"; //보류
 
-export const addPost = {
-  type: ADD_POST,
+export const addPost = (data) => {
+  return {
+    type: ADD_POST,
+    data: data,
+  };
 };
 
 export const checkedPost = (id) => {
@@ -31,9 +36,10 @@ export const checkedPost = (id) => {
 const reducer = (state = initialState, action) => {
   switch (action.type) {
     case ADD_POST:
+      console.log(action.data);
       return {
         ...state,
-        todos: [dummyPost, ...state.todos],
+        todos: [dummyPost(action.data), ...state.todos],
       };
     default:
       return state;

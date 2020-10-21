@@ -19,14 +19,14 @@ const TitleDiv = styled.div`
 `;
 
 const TodaysDiv = styled.div`
-  font-size: 25px;
+  font-size: 22px;
   color: #595959;
   font-weight: 600;
 `;
 
 const DateDiv = styled.div`
   display: flex;
-  font-size: 24px;
+  font-size: 21px;
   color: #2f54eb;
   font-weight: 600;
 `;
@@ -34,10 +34,10 @@ const DateDiv = styled.div`
 const Today = () => {
   return (
     <TitleDiv>
-      <TodaysDiv>Today`s Schedule</TodaysDiv>
+      <TodaysDiv>Today&#39;s Tiki-Taka</TodaysDiv>
       <DateDiv>
-        <div style={{ marginRight: "8px" }}>{todayString(today.getDate())}</div>
-        <div>{today.getDay()}</div>
+        <div style={{ marginRight: "8px" }}>{todayString(today.getDay())}</div>
+        <div>{today.getDate()}</div>
       </DateDiv>
     </TitleDiv>
   );

@@ -1,7 +1,6 @@
 import React, { useCallback, useState } from "react";
 import PropTypes from "prop-types";
-import { MinusOutlined, CheckOutlined } from "@ant-design/icons";
-import { Button } from "antd";
+import { MinusCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 
 const TodoItem = ({ post }) => {
   const { textValue } = post;
@@ -21,12 +20,24 @@ const TodoItem = ({ post }) => {
   }, []);
   return (
     <div className="todoItemWrapper">
-      <Button
+      {/* <Button
         size="small"
         shape="circle"
         icon={!end ? <MinusOutlined /> : <CheckOutlined />}
         onClick={onToggle}
-      ></Button>
+      ></Button> */}
+      {end ? (
+        <CheckCircleOutlined
+          style={{ color: "#2f54eb", fontSize: "16px" }}
+          onClick={onToggle}
+        />
+      ) : (
+        <MinusCircleOutlined
+          style={{ color: "black", fontSize: "16px" }}
+          onClick={onToggle}
+        />
+      )}
+
       <div className="textBox" style={end ? style2 : style}>
         <div className="textBox__imo">😀</div>
         <div className="textBox__text">{textValue}</div>
