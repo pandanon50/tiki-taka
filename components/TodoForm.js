@@ -19,7 +19,9 @@ const TodoForm = () => {
   return (
     <Form onFinish={onSubmit}>
       <div>
-        <label htmlFor="dos">할 일</label>
+        <label htmlFor="dos">
+          &#39;날짜&#39; + &#39;할 일&#39; + &#39;기능&#39; 순서대로!{" "}
+        </label>
         <br />
         <Input name="dos" value={dos} onChange={onChangeDo} required />
       </div>
@@ -30,7 +32,7 @@ const TodoForm = () => {
           htmlType="submit"
           loading={false}
         >
-          추가
+          확인
         </Button>
       </div>
     </Form>

@@ -1,8 +1,16 @@
 import React from "react";
 import AppLayout from "../components/AppLayout";
-
-const goal = () => {
-  return <AppLayout>goal 페이지 입니다.</AppLayout>;
+import GoalItem from "../components/GoalItem";
+import { useSelector } from "react-redux";
+const Goal = () => {
+  const { goals } = useSelector((state) => state.goal);
+  return (
+    <AppLayout>
+      {goals.map((goal) => (
+        <GoalItem key={goal.id} goal={goal} />
+      ))}
+    </AppLayout>
+  );
 };
 
-export default goal;
+export default Goal;

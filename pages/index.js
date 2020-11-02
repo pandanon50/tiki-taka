@@ -1,9 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import AppLayout from "../components/AppLayout";
 import TodoItem from "../components/TodoItem";
 import TodoForm from "../components/TodoForm";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
+import { Modal, Button } from "antd";
 
 const TodosWrapper = styled.div`
   display: flex;
@@ -13,12 +14,35 @@ const TodosWrapper = styled.div`
 `;
 
 const todo = () => {
+  const [visible, setVisible] = useState(false);
   const { todos } = useSelector((state) => state.post);
+
+  const showModal = () => {
+    setVisible(true);
+  };
+
+  const handleOk = () => {
+    setVisible(false);
+  };
+
+  const handleCancel = () => {
+    setVisible(false);
+  };
 
   return (
     <AppLayout>
       <div style={{ marginBottom: "20px" }}>
-        <TodoForm />
+        <Button type="primary" onClick={showModal}>
+          +
+        </Button>
+        <Modal
+          title="Basic Modal"
+          visible={visible}
+          onOk={handleOk}
+          onCancel={handleCancel}
+        >
+          <TodoForm />
+        </Modal>
       </div>
       <TodosWrapper className="todosWrapper">
         {todos.map((post) => (
