@@ -19,6 +19,7 @@ const month = () => {
   const onSelectDate = useCallback((value) => {
     setValue(value);
   }, []);
+
   return (
     <AppLayout>
       <MonthDiv>

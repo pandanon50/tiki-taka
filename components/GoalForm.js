@@ -1,7 +1,7 @@
 import React from "react";
 
-const GoalPost = () => {
+const GoalForm = () => {
   return <div>post</div>;
 };
 
-export default GoalPost;
+export default GoalForm;

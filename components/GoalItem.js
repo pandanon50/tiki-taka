@@ -15,25 +15,24 @@ const GridDiv = styled.div`
 
 const Global = createGlobalStyle`
 .ant-collapse-header{
-  align-item:center;
-  display:flex;
-  justify-content:center;  
   font-size:16px;
 }
 `;
 
 const GoalItem = ({ goal }) => {
   const { goalName, week, day, id } = goal;
+
   const num = week * day;
   console.log(num);
 
-  const Icon = () => {
-    return "👉";
-  };
+  // const Icon = () => {
+  //   return "👉";
+  // };
   return (
     <div>
       <Global />
-      <Collapse defaultActiveKey={["1"]} ghost expandIcon={Icon}>
+      <Collapse defaultActiveKey={["1"]} ghost>
+        {/*  goalName 퍼센트 보이는 컴포넌트로 변경 해야함  */}
         <Panel header={goalName} key={id}>
           <GridDiv>
             {[...Array(num)].map((i) => (
