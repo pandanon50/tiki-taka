@@ -20,10 +20,9 @@ const Global = createGlobalStyle`
 `;
 
 const GoalItem = ({ goal }) => {
-  const { goalName, week, day, id } = goal;
+  const { goalName, cnt, id } = goal;
 
-  const num = week * day;
-  console.log(num);
+  const num = cnt;
 
   // const Icon = () => {
   //   return "👉";

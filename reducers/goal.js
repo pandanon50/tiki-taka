@@ -1,21 +1,25 @@
+import moment from "moment";
+
+const today = moment();
+
 export const initialState = {
   goals: [
     {
       id: 1,
       goalName: "하루 6km 걷기 운동하기",
-      week: 4,
-      day: 3,
+      timeline: today.format("YYMMDD"),
+      cnt: 10,
     },
   ],
 };
 
 const ADD_GOAL = "ADD_GOAL";
-const dummyPost = (data, week, day) => {
+const dummyPost = (data, timeline, cnt) => {
   return {
     id: 2,
     goalName: `${data}`,
-    week,
-    day,
+    timeline,
+    cnt,
   };
 };
 
