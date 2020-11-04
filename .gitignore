@@ -1,10 +1,6 @@
 /node_modules
 .eslintrc
-<<<<<<< HEAD
-.next
-.babelrc
-=======
 next
 .babelrc
 .next/
->>>>>>> 3becaa3f38f02ef7744f36477efe5c8460ef0d6a
+
