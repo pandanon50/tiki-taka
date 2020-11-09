@@ -15,6 +15,7 @@ const todayString = (num) => {
 
 const TitleDiv = styled.div`
   width: 100%;
+  background-color: white;
   padding: 15px;
 `;
 
