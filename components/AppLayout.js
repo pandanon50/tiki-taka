@@ -3,30 +3,38 @@ import PropTypes from "prop-types";
 import Link from "next/link";
 import { Menu, Col, Row } from "antd";
 import { HomeOutlined, AudioOutlined, HeartOutlined } from "@ant-design/icons";
+import LoginForm from "./LoginForm";
 import Today from "./Today";
-
+import { useSelector } from "react-redux";
 const AppLayout = ({ children }) => {
+  const { isLoggedIn } = useSelector((state) => state.user);
   return (
     <div>
       <Row>
         <Col xs={24} md={6}></Col>
         <Col style={{ minHeight: "667px" }} xs={24} md={12}>
           <Today />
+          {!isLoggedIn && <LoginForm />}
           <div>
             <Menu mode="horizontal">
               <Menu.Item>
                 <Link href="/">
-                  <a>today</a>
+                  <a>Today</a>
                 </Link>
               </Menu.Item>
               <Menu.Item>
                 <Link href="/month">
-                  <a>month</a>
+                  <a>Month</a>
                 </Link>
               </Menu.Item>
               <Menu.Item>
                 <Link href="/goal">
-                  <a>goal</a>
+                  <a>Goal</a>
+                </Link>
+              </Menu.Item>
+              <Menu.Item>
+                <Link href="/signup">
+                  <a>Signup</a>
                 </Link>
               </Menu.Item>
             </Menu>

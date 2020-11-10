@@ -2,11 +2,23 @@ import React from "react";
 import PropTypes from "prop-types";
 import "antd/dist/antd.css";
 import "../src/scss/styles.scss";
-
+import Head from "next/head";
+//import LoginForm from "../components/LoginForm";
 import wrapper from "../store/configureStore";
+//import { useSelector } from "react-redux";
 
 const ToDoApp = ({ Component }) => {
-  return <Component />;
+  //const { isLoggedIn } = useSelector((state) => state.user);
+
+  return (
+    <>
+      <Head>
+        <meta charSet="utf-8" />
+        <title>TIkI&TAKA</title>
+      </Head>
+      <Component />
+    </>
+  );
 };
 
 ToDoApp.propTypes = {

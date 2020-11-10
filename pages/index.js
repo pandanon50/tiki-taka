@@ -5,6 +5,7 @@ import TodoForm from "../components/TodoForm";
 import styled from "styled-components";
 import { useSelector } from "react-redux";
 import { Modal, Button } from "antd";
+//import LoginForm from "../components/LoginForm";
 
 const TodosWrapper = styled.div`
   display: flex;
@@ -16,6 +17,7 @@ const TodosWrapper = styled.div`
 const todo = () => {
   const [visible, setVisible] = useState(false);
   const { todos } = useSelector((state) => state.post);
+  //const { isLoggedIn } = useSelector((state) => state.user);
 
   const showModal = () => {
     setVisible(true);
