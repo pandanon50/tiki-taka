@@ -3,14 +3,17 @@ import useInput from "../hooks/useInput";
 import AppLayout from "../components/Applayout";
 import HEAD from "next/head";
 import styled from "styled-components";
+import { useDispatch, useSelector } from "react-redux";
 import { Form, Input, Checkbox, Button } from "antd";
+import { SIGN_UP_REQUEST } from "../reducers/user";
 
 const ErrorMessage = styled.div`
   color: red;
 `;
 
 const signup = () => {
-  const [id, onChangeId] = useInput("");
+  const dispatch = useDispatch();
+  const [email, onChangeEmail] = useInput("");
   const [nickname, onChangeNickname] = useInput("");
   const [password, onChangePassword] = useInput("");
 
@@ -38,16 +41,28 @@ const signup = () => {
     if (!term) {
       return setTermError(true);
     }
-    console.log(id, nickname, password);
+
+    console.log(email, nickname, password);
+    dispatch({
+      type: SIGN_UP_REQUEST,
+      data: { email, password, nickname },
+    });
   }, [password, passwordCheck, term]);
   return (
     <AppLayout>
       <HEAD>회원가입 | 노드버드</HEAD>
       <Form onFinish={onSubmit}>
         <div>
-          <label htmlFor="user-id">아이디</label>
+          <label type="email" htmlFor="user-email">
+            아이디
+          </label>
           <br />
-          <Input name="user-id" value={id} onChange={onChangeId} required />
+          <Input
+            name="user-email"
+            value={email}
+            onChange={onChangeEmail}
+            required
+          />
         </div>
         <div>
           <label htmlFor="user-nickname">닉네임</label>

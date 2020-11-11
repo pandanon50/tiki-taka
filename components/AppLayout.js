@@ -6,15 +6,16 @@ import { HomeOutlined, AudioOutlined, HeartOutlined } from "@ant-design/icons";
 import LoginForm from "./LoginForm";
 import Today from "./Today";
 import { useSelector } from "react-redux";
+import UserProfile from "./UserProfile";
 const AppLayout = ({ children }) => {
-  const { isLoggedIn } = useSelector((state) => state.user);
+  const { user } = useSelector((state) => state.user);
   return (
     <div>
       <Row>
         <Col xs={24} md={6}></Col>
         <Col style={{ minHeight: "667px" }} xs={24} md={12}>
           <Today />
-          {!isLoggedIn && <LoginForm />}
+          {user ? <UserProfile /> : <LoginForm />}
           <div>
             <Menu mode="horizontal">
               <Menu.Item>
@@ -30,11 +31,6 @@ const AppLayout = ({ children }) => {
               <Menu.Item>
                 <Link href="/goal">
                   <a>Goal</a>
-                </Link>
-              </Menu.Item>
-              <Menu.Item>
-                <Link href="/signup">
-                  <a>Signup</a>
                 </Link>
               </Menu.Item>
             </Menu>
@@ -57,7 +53,7 @@ const AppLayout = ({ children }) => {
                 </Link>
               </li>
               <li className="footer-list__item">
-                <Link href="/goal">
+                <Link href="/signup">
                   <a>
                     <HeartOutlined />
                   </a>

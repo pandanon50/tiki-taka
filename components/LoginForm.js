@@ -3,8 +3,9 @@ import { Form, Input, Button } from "antd";
 //import Link from "next/link";
 import styled from "styled-components";
 //import PropTypes from "prop-types";
-import { useDispatch } from "react-redux";
-import { loginAction } from "../reducers/user";
+import { useDispatch, useSelector } from "react-redux";
+import { loginRequestAction } from "../reducers/user";
+
 const SubmitWrapper = styled.div`
   margin-top: 10px;
 `;
@@ -16,12 +17,12 @@ const FormWrapper = styled(Form)`
 
 const LoginForm = () => {
   const dispatch = useDispatch();
-
-  const [id, setId] = useState("");
+  const { logInLoading } = useSelector((state) => state.user);
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onChangeId = useCallback((e) => {
-    setId(e.target.value);
+  const onChangeEmail = useCallback((e) => {
+    setEmail(e.target.value);
   }, []);
 
   const onChangePassword = useCallback((e) => {
@@ -29,17 +30,24 @@ const LoginForm = () => {
   }, []);
 
   const onSubmitForm = useCallback(() => {
-    console.log(id, password);
-    dispatch(loginAction({ id, password }));
+    console.log(email, password);
+    dispatch(loginRequestAction({ email, password }));
     //setIsLoggedIn(true);
-  }, [id, password]);
+  }, [email, password]);
 
   return (
     <FormWrapper onFinish={onSubmitForm}>
       <div>
-        <label htmlFor="user-id">아이디</label>
+        <label type="email" htmlFor="user-email">
+          이메일
+        </label>
         <br />
-        <Input name="user-id" value={id} onChange={onChangeId} required />
+        <Input
+          name="user-email"
+          value={email}
+          onChange={onChangeEmail}
+          required
+        />
       </div>
       <div>
         <label htmlFor="user-password">패스워드</label>
@@ -53,7 +61,7 @@ const LoginForm = () => {
         />
       </div>
       <SubmitWrapper>
-        <Button type="primary" htmlType="submit" loading={false}>
+        <Button type="primary" htmlType="submit" loading={logInLoading}>
           로그인
         </Button>
       </SubmitWrapper>

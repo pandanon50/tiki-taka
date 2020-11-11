@@ -6,7 +6,7 @@ import Head from "next/head";
 //import LoginForm from "../components/LoginForm";
 import wrapper from "../store/configureStore";
 //import { useSelector } from "react-redux";
-
+import withReduxSaga from "next-redux-saga";
 const ToDoApp = ({ Component }) => {
   //const { isLoggedIn } = useSelector((state) => state.user);
 
@@ -25,4 +25,4 @@ ToDoApp.propTypes = {
   Component: PropTypes.elementType.isRequired,
 };
 
-export default wrapper.withRedux(ToDoApp);
+export default wrapper.withRedux(withReduxSaga(ToDoApp));

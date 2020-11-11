@@ -1,7 +1,7 @@
 import React, { useState, useCallback } from "react";
 import { Form, Input, Button } from "antd";
 import { useDispatch } from "react-redux";
-import { addPost } from "../reducers/post";
+import { addPostRequest } from "../reducers/post";
 
 const TodoForm = () => {
   const [dos, setDos] = useState("");
@@ -12,7 +12,7 @@ const TodoForm = () => {
   }, []);
 
   const onSubmit = useCallback(() => {
-    dispatch(addPost(dos));
+    dispatch(addPostRequest(dos));
     setDos("");
   }, [dos]);
 
