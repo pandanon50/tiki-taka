@@ -1,19 +1,26 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import { Form, Input, Button } from "antd";
-import { useDispatch } from "react-redux";
-import { addPostRequest } from "../reducers/post";
+import { useDispatch, useSelector } from "react-redux";
+import { addPostRequestAction } from "../reducers/post";
+import { setContext } from "redux-saga/effects";
 
 const TodoForm = () => {
+  const { addPostDone } = useSelector((state) => state.user);
   const [dos, setDos] = useState("");
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (addPostDone) {
+      setDos("");
+    }
+  }, [addPostDone]);
 
   const onChangeDo = useCallback((e) => {
     setDos(e.target.value);
   }, []);
 
   const onSubmit = useCallback(() => {
-    dispatch(addPostRequest(dos));
-    setDos("");
+    dispatch(addPostRequestAction(dos));
   }, [dos]);
 
   return (

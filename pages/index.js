@@ -16,7 +16,7 @@ const TodosWrapper = styled.div`
 
 const todo = () => {
   const [visible, setVisible] = useState(false);
-  const { todos } = useSelector((state) => state.post);
+  const { todos, addPostLoading } = useSelector((state) => state.post);
   //const { isLoggedIn } = useSelector((state) => state.user);
 
   const showModal = () => {
@@ -34,7 +34,7 @@ const todo = () => {
   return (
     <AppLayout>
       <div style={{ marginBottom: "20px" }}>
-        <Button type="primary" onClick={showModal}>
+        <Button type="primary" loading={addPostLoading} onClick={showModal}>
           +
         </Button>
         <Modal

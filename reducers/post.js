@@ -14,7 +14,7 @@ export const initialState = {
 const dummyPost = (data) => {
   return {
     id: 2,
-    textValue: `${data}`,
+    textValue: data,
     checked: false,
   };
 };
@@ -25,12 +25,10 @@ export const ADD_POST_FAILURE = "ADD_POST_FAILURE";
 
 const CHECKED_POST = "CHECKED_POST"; //보류
 
-export const addPostRequest = (data) => {
-  return {
-    type: ADD_POST_REQUEST,
-    data: data,
-  };
-};
+export const addPostRequestAction = (data) => ({
+  type: ADD_POST_REQUEST,
+  data,
+});
 
 export const checkedPostRequest = (id) => {
   return {
@@ -48,15 +46,14 @@ const reducer = (state = initialState, action) => {
         addPostLoading: true,
         addPostDone: false,
         addPostError: null,
-        todos: [dummyPost(action.data), ...state.todos],
       };
     case ADD_POST_SUCCESS:
       console.log(action.data);
       return {
         ...state,
+        todos: [dummyPost(action.data), ...state.todos],
         addPostLoading: false,
         addPostDone: true,
-        todos: [dummyPost(action.data), ...state.todos],
       };
     case ADD_POST_FAILURE:
       console.log(action.data);
@@ -64,7 +61,6 @@ const reducer = (state = initialState, action) => {
         ...state,
         addPostLoading: false,
         addPostError: action.error,
-        todos: [dummyPost(action.data), ...state.todos],
       };
     default:
       return state;

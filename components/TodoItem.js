@@ -1,4 +1,4 @@
-import React, { useCallback, useState } from "react";
+import React, { useCallback, useState, useSelector } from "react";
 import PropTypes from "prop-types";
 import { MinusCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 
@@ -20,12 +20,6 @@ const TodoItem = ({ post }) => {
   }, []);
   return (
     <div className="todoItemWrapper">
-      {/* <Button
-        size="small"
-        shape="circle"
-        icon={!end ? <MinusOutlined /> : <CheckOutlined />}
-        onClick={onToggle}
-      ></Button> */}
       {end ? (
         <CheckCircleOutlined
           style={{ color: "#2f54eb", fontSize: "16px" }}
