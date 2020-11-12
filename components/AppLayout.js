@@ -12,8 +12,9 @@ const AppLayout = ({ children }) => {
   return (
     <div>
       <Row>
-        <Col xs={24} md={6}></Col>
+        <Col xs={24} md={6}></Col>{" "}
         <Col style={{ minHeight: "667px" }} xs={24} md={12}>
+          {" "}
           <Today />
           {user ? <UserProfile /> : <LoginForm />}
           <div>

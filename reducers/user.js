@@ -60,7 +60,6 @@ const reducer = (state = initialState, action) => {
         logInLoading: false,
         logInError: action.error,
       };
-
     case LOG_OUT_REQUEST:
       return {
         ...state,

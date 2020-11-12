@@ -43,7 +43,7 @@ const Today = () => {
           marginBottom: "10px",
         }}
       >
-        Today&#39;s Tiki-Taka
+        Today&#39;s TiKi-TaKa
       </div>
       <div
         style={{

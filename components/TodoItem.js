@@ -15,6 +15,7 @@ const TodoItem = ({ post }) => {
     backgroundColor: "#2f54eb",
     color: "white",
   };
+
   const onToggle = useCallback(() => {
     setEnd((prev) => !prev);
   }, []);
