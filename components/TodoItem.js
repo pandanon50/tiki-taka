@@ -1,9 +1,10 @@
 import React, { useCallback, useState, useSelector } from "react";
 import PropTypes from "prop-types";
+import moment from "moment";
 import { MinusCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
 
 const TodoItem = ({ post }) => {
-  const { textValue } = post;
+  const { content, date } = post;
   const [end, setEnd] = useState(false);
 
   const style = {
@@ -32,10 +33,9 @@ const TodoItem = ({ post }) => {
           onClick={onToggle}
         />
       )}
-
       <div className="textBox" style={end ? style2 : style}>
         <div className="textBox__imo">😀</div>
-        <div className="textBox__text">{textValue}</div>
+        <div className="textBox__text">{content}</div>
       </div>
     </div>
   );

@@ -1,22 +1,13 @@
+import produce from "immer";
+
 export const initialState = {
-  todos: [
-    {
-      id: 1,
-      textValue: "시작하기!",
-      checked: false,
-    },
-  ],
+  todos: null,
+  loadPostLoading: false,
+  loadPostDone: false,
+  loadPostError: null,
   addPostLoading: false,
   addPostDone: false,
   addPostError: null,
-};
-
-const dummyPost = (data) => {
-  return {
-    id: 2,
-    textValue: data,
-    checked: false,
-  };
 };
 
 export const ADD_POST_REQUEST = "ADD_POST_REQUEST";
@@ -24,6 +15,10 @@ export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
 export const ADD_POST_FAILURE = "ADD_POST_FAILURE";
 
 const CHECKED_POST = "CHECKED_POST"; //보류
+
+export const LOAD_POST_REQUEST = "LOAD_POST_REQUEST";
+export const LOAD_POST_SUCCESS = "LOAD_POST_SUCCESS";
+export const LOAD_POST_FAILURE = "LOAD_POST_FAILURE";
 
 export const addPostRequestAction = (data) => ({
   type: ADD_POST_REQUEST,
@@ -38,33 +33,39 @@ export const checkedPostRequest = (id) => {
 };
 
 const reducer = (state = initialState, action) => {
-  switch (action.type) {
-    case ADD_POST_REQUEST:
-      console.log(action.data);
-      return {
-        ...state,
-        addPostLoading: true,
-        addPostDone: false,
-        addPostError: null,
-      };
-    case ADD_POST_SUCCESS:
-      console.log(action.data);
-      return {
-        ...state,
-        todos: [dummyPost(action.data), ...state.todos],
-        addPostLoading: false,
-        addPostDone: true,
-      };
-    case ADD_POST_FAILURE:
-      console.log(action.data);
-      return {
-        ...state,
-        addPostLoading: false,
-        addPostError: action.error,
-      };
-    default:
-      return state;
-  }
+  return produce(state, (draft) => {
+    switch (action.type) {
+      case LOAD_POST_REQUEST:
+        draft.loadPostLoading = true;
+        draft.loadPostDone = false;
+        draft.loadPostError = null;
+        break;
+      case LOAD_POST_SUCCESS:
+        draft.loadPostLoading = false;
+        draft.loadaddPostDone = true;
+        draft.todos = action.data;
+        break;
+      case LOAD_POST_FAILURE:
+        draft.loadPostLoading = false;
+        draft.loadPostError = action.error;
+        break;
+      case ADD_POST_REQUEST:
+        draft.addPostLoading = true;
+        draft.addPostDone = false;
+        draft.addPostError = null;
+        break;
+      case ADD_POST_SUCCESS:
+        draft.addPostLoading = false;
+        draft.addPostDone = true;
+        break;
+      case ADD_POST_FAILURE:
+        draft.addPostLoading = false;
+        draft.addPostError = action.error;
+        break;
+      default:
+        return state;
+    }
+  });
 };
 
 export default reducer;

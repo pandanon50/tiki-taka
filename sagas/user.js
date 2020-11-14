@@ -1,6 +1,9 @@
 import { all, fork, delay, put, takeLatest, call } from "redux-saga/effects";
 import axios from "axios";
 import {
+  LOAD_USER_FAILURE,
+  LOAD_USER_REQUEST,
+  LOAD_USER_SUCCESS,
   LOG_IN_SUCCESS,
   LOG_IN_FAILURE,
   LOG_IN_REQUEST,
@@ -15,17 +18,16 @@ import {
 function logInAPI(data) {
   //제너레이터 x
   // 실제 백엔드와 연결되는 부분
-  return axios.post("/api/login", data);
+  return axios.post("/user/login", data);
 }
 
 function* logIn(action) {
   try {
     console.log("saga login");
-    //const result = yield call(logInAPI, action.data); //call은 call(함수이름 , 매개변수1 , 매개변수2 .....)
-    yield delay(1000);
+    const result = yield call(logInAPI, action.data); //call은 call(함수이름 , 매개변수1 , 매개변수2 .....)
     yield put({
       type: LOG_IN_SUCCESS,
-      data: action.data,
+      data: result.data,
     });
   } catch (err) {
     yield put({
@@ -38,16 +40,14 @@ function* logIn(action) {
 function logOutAPI(data) {
   //제너레이터 x
   // 실제 백엔드와 연결되는 부분
-  return axios.post("/api/logout", data);
+  return axios.post("/user/logout");
 }
 
 function* logOut(action) {
   try {
-    //const result = yield call(logOutAPI, action.data);
-    yield delay(1000);
+    yield call(logOutAPI);
     yield put({
       type: LOG_OUT_SUCCESS,
-      //data: result.data,
     });
   } catch (err) {
     yield put({
@@ -58,7 +58,7 @@ function* logOut(action) {
 }
 
 function signUpAPI(data) {
-  return axios.post("http://localhost:3065/user", data);
+  return axios.post("/user", data);
 }
 
 function* signUp(action) {
@@ -71,6 +71,25 @@ function* signUp(action) {
   } catch (err) {
     yield put({
       type: SIGN_UP_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function loadUserAPI() {
+  return axios.get("/user"); // GET
+}
+
+function* loadUser(action) {
+  try {
+    const result = yield call(loadUserAPI, action.data);
+    yield put({
+      type: LOAD_USER_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    yield put({
+      type: LOAD_USER_FAILURE,
       error: err.response.data,
     });
   }
@@ -89,6 +108,15 @@ function* watchSignUp() {
   yield takeLatest(SIGN_UP_REQUEST, signUp);
 }
 
+function* watchLoadUser() {
+  yield takeLatest(LOAD_USER_REQUEST, loadUser);
+}
+
 export default function* userSaga() {
-  yield all([fork(watchLogIn), fork(watchLogOut), fork(watchSignUp)]);
+  yield all([
+    fork(watchLogIn),
+    fork(watchLogOut),
+    fork(watchSignUp),
+    fork(watchLoadUser),
+  ]);
 }

@@ -1,12 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import AppLayout from "../components/AppLayout";
 import TodoItem from "../components/TodoItem";
 import TodoForm from "../components/TodoForm";
 import styled from "styled-components";
-import { useSelector } from "react-redux";
+import moment from "moment";
+import { useSelector, useDispatch } from "react-redux";
 import { Modal, Button } from "antd";
 //import LoginForm from "../components/LoginForm";
-
+import { LOAD_USER_REQUEST } from "../reducers/user";
+import { LOAD_POST_REQUEST } from "../reducers/post";
 const TodosWrapper = styled.div`
   display: flex;
   padding: 5px;
@@ -15,10 +17,20 @@ const TodosWrapper = styled.div`
 `;
 
 const todo = () => {
-  const [visible, setVisible] = useState(false);
-  const { todos, addPostLoading } = useSelector((state) => state.post);
-  //const { isLoggedIn } = useSelector((state) => state.user);
+  const dispatch = useDispatch();
 
+  const [visible, setVisible] = useState(false);
+  const { user } = useSelector((state) => state.user);
+  const { todos, addPostLoading } = useSelector((state) => state.post);
+  useEffect(() => {
+    dispatch({
+      type: LOAD_USER_REQUEST,
+    });
+    dispatch({
+      type: LOAD_POST_REQUEST,
+    });
+  }, [user]);
+  console.log(todos);
   const showModal = () => {
     setVisible(true);
   };
@@ -30,7 +42,6 @@ const todo = () => {
   const handleCancel = () => {
     setVisible(false);
   };
-
   return (
     <AppLayout>
       <div style={{ marginBottom: "20px" }}>
@@ -47,9 +58,7 @@ const todo = () => {
         </Modal>
       </div>
       <TodosWrapper className="todosWrapper">
-        {todos.map((post) => (
-          <TodoItem key={post.id} post={post} />
-        ))}
+        {todos && todos.map((post) => <TodoItem key={post.id} post={post} />)}
       </TodosWrapper>
     </AppLayout>
   );

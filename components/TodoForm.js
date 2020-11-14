@@ -1,12 +1,14 @@
 import React, { useState, useCallback, useEffect } from "react";
-import { Form, Input, Button } from "antd";
+import { Form, Input, Button, DatePicker } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { addPostRequestAction } from "../reducers/post";
+import { addPostRequestAction, ADD_POST_REQUEST } from "../reducers/post";
 import { setContext } from "redux-saga/effects";
+import moment from "moment";
 
 const TodoForm = () => {
-  const { addPostDone } = useSelector((state) => state.user);
+  const { addPostDone, id } = useSelector((state) => state.user);
   const [dos, setDos] = useState("");
+  const [date, setDate] = useState(moment());
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,18 +21,24 @@ const TodoForm = () => {
     setDos(e.target.value);
   }, []);
 
+  const onChangeDate = useCallback((date, dateString) => {
+    const value = moment(dateString).format("YYYYMMDD");
+    setDate(value);
+  });
   const onSubmit = useCallback(() => {
-    dispatch(addPostRequestAction(dos));
-  }, [dos]);
+    dispatch(addPostRequestAction({ content: dos, date: date, UserId: id }));
+  }, [dos, date]);
 
   return (
     <Form onFinish={onSubmit}>
       <div>
-        <label htmlFor="dos">
-          &#39;날짜&#39; + &#39;할 일&#39; + &#39;기능&#39; 순서대로!{" "}
-        </label>
+        <label htmlFor="dos">TODO:</label>
         <br />
         <Input name="dos" value={dos} onChange={onChangeDo} required />
+        <br />
+        <label htmlFor="dos">DATE:</label>
+        <br />
+        <DatePicker onChange={onChangeDate} />
       </div>
       <div>
         <Button
