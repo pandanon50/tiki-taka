@@ -27,7 +27,7 @@ passportConfig();
 
 app.use(
   cors({
-    origin: "http://localhost:3000", // 모든 서버 허용 '*'
+    origin: "http://localhost:3060", // 모든 서버 허용 '*'
     credentials: true, // 기본값이 false
   })
 );
@@ -47,6 +47,10 @@ app.use(
 // passport 사용 미들웨어
 app.use(passport.initialize());
 app.use(passport.session());
+
+app.get("/", (req, res) => {
+  res.send("hello express");
+});
 
 app.use("/post", postRouter);
 app.use("/user", userRouter);

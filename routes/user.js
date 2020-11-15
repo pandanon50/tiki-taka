@@ -7,10 +7,11 @@ const { isLoggedIn, isNotLoggedIn } = require("./middlewares");
 // 응답은 한번만 보낸다!
 
 router.get("/", async (req, res, next) => {
+  console.log(req.headers);
   try {
     if (req.user) {
       const fullUserWithoutPassword = await User.findOne({
-        where: { id: user.id },
+        where: { id: req.user.id },
         attributes: {
           exclude: ["password"],
         },
@@ -49,7 +50,7 @@ router.post("/login", isNotLoggedIn, (req, res, next) => {
         return next(loginErr);
       }
       const fullUserWithoutPassword = await User.findOne({
-        where: { id: user.id },
+        where: { id: req.user.id },
         attributes: {
           exclude: ["password"],
         },
