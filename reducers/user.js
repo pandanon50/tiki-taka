@@ -1,9 +1,9 @@
 import produce from "immer";
 
 export const initialState = {
-  loadUserLoading: false, // 로그인 정보 불러오는 중
-  loadUserDone: false,
-  loadUserError: false,
+  loadMyInfoserLoading: false, // 로그인 정보 불러오는 중
+  loadMyInfoDone: false,
+  loadMyInfoError: false,
   logInLoading: false, // 로그인 중
   logInDone: false,
   logInError: false,
@@ -13,14 +13,12 @@ export const initialState = {
   signUpLoading: false, // 회원가입 중
   signUpDone: false,
   signUpError: false,
-  user: null,
-  signUpData: {},
-  loginData: {},
+  me: null,
 };
 
-export const LOAD_USER_REQUEST = "LOAD_USER_REQUEST";
-export const LOAD_USER_SUCCESS = "LOAD_USER_SUCCESS";
-export const LOAD_USER_FAILURE = "LOAD_USER_FAILURE";
+export const LOAD_MY_INFO_REQUEST = "LOAD_MY_INFO_REQUEST";
+export const LOAD_MY_INFO_SUCCESS = "LOAD_MY_INFO_SUCCESS";
+export const LOAD_MY_INFO_FAILURE = "LOAD_MY_INFO_FAILURE";
 
 export const LOG_IN_REQUEST = "LOG_IN_REQUEST";
 export const LOG_IN_SUCCESS = "LOG_IN_SUCCESS";
@@ -51,22 +49,21 @@ export const logOutRequestAction = () => {
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
-      case LOAD_USER_REQUEST:
-        draft.loadUserLoading = true;
-        draft.loadUserError = null;
-        draft.loadUserDone = false;
+      case LOAD_MY_INFO_REQUEST:
+        draft.loadMyInfoLoading = true;
+        draft.loadMyInfoError = null;
+        draft.loadMyInfoDone = false;
         break;
 
-      case LOAD_USER_SUCCESS:
-        draft.loadUserLoading = false;
-        draft.user = action.data;
-        draft.loadUserDone = true;
+      case LOAD_MY_INFO_SUCCESS:
+        draft.loadMyInfoLoading = false;
+        draft.me = action.data;
+        draft.loadMyInfoDone = true;
         break;
 
-      case LOAD_USER_FAILURE:
-        draft.loadUserLoading = false;
-        draft.loadUserError = action.error;
-        draft.loadUserDone = false;
+      case LOAD_MY_INFO_FAILURE:
+        draft.loadMyInfoLoading = false;
+        draft.loadMyInfoError = action.error;
         break;
 
       case LOG_IN_REQUEST:
@@ -77,8 +74,8 @@ const reducer = (state = initialState, action) => {
 
       case LOG_IN_SUCCESS:
         draft.logInLoading = false;
+        draft.me = action.data;
         draft.logInDone = true;
-        draft.user = action.data;
         break;
 
       case LOG_IN_FAILURE:
@@ -94,7 +91,7 @@ const reducer = (state = initialState, action) => {
 
       case LOG_OUT_SUCCESS:
         draft.logOutLoading = false;
-        draft.user = null;
+        draft.me = null;
         draft.logOutDone = true;
         break;
 
@@ -116,9 +113,7 @@ const reducer = (state = initialState, action) => {
       case SIGN_UP_FAILURE:
         draft.signUpLoading = false;
         draft.signUpError = action.error;
-
         break;
-
       default:
         return state;
     }

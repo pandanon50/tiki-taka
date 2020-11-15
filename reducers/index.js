@@ -3,18 +3,19 @@ import { combineReducers } from "redux";
 import post from "./post";
 import goal from "./goal";
 import user from "./user";
-const rootReducer = combineReducers({
-  index: (state = {}, action) => {
-    switch (action.type) {
-      case HYDRATE:
-        return { ...state, ...action.payload };
-      default:
-        return state;
+const rootReducer = (state, action) => {
+  switch (action.type) {
+    case HYDRATE:
+      return action.payload;
+    default: {
+      const combineReducer = combineReducers({
+        user,
+        post,
+        goal,
+      });
+      return combineReducer(state, action);
     }
-  },
-  post,
-  goal,
-  user,
-});
+  }
+};
 
 export default rootReducer;

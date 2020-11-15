@@ -1,12 +1,13 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Form, Input, Button, DatePicker } from "antd";
 import { useDispatch, useSelector } from "react-redux";
-import { addPostRequestAction, ADD_POST_REQUEST } from "../reducers/post";
+import { addPostRequestAction, LOAD_POST_REQUEST } from "../reducers/post";
 import { setContext } from "redux-saga/effects";
 import moment from "moment";
+import wrapper from "../store/configureStore";
 
 const TodoForm = () => {
-  const { addPostDone, id } = useSelector((state) => state.user);
+  const { addPostDone, id, addPostError } = useSelector((state) => state.user);
   const [dos, setDos] = useState("");
   const [date, setDate] = useState(moment());
   const dispatch = useDispatch();
@@ -15,7 +16,10 @@ const TodoForm = () => {
     if (addPostDone) {
       setDos("");
     }
-  }, [addPostDone]);
+    if (addPostError) {
+      alert(addPostError);
+    }
+  }, [addPostDone, addPostError]);
 
   const onChangeDo = useCallback((e) => {
     setDos(e.target.value);
@@ -53,5 +57,15 @@ const TodoForm = () => {
     </Form>
   );
 };
+
+export const getServerSideProps = wrapper.getServerSideProps(
+  async (context) => {
+    context.store.dispatch({
+      type: LOAD_POST_REQUEST,
+    });
+    context.store.dispatch(END);
+    await context.store.sagaTask.toPromise();
+  }
+);
 
 export default TodoForm;

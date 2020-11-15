@@ -8,7 +8,7 @@ import Today from "./Today";
 import { useSelector } from "react-redux";
 import UserProfile from "./UserProfile";
 const AppLayout = ({ children }) => {
-  const { user } = useSelector((state) => state.user);
+  const { me } = useSelector((state) => state.user);
   return (
     <div>
       <Row>
@@ -16,7 +16,7 @@ const AppLayout = ({ children }) => {
         <Col style={{ minHeight: "667px" }} xs={24} md={12}>
           {" "}
           <Today />
-          {user ? <UserProfile /> : <LoginForm />}
+          {me ? <UserProfile /> : <LoginForm />}
           <div>
             <Menu mode="horizontal">
               <Menu.Item>
