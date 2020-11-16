@@ -9,7 +9,6 @@ const value = today.format("YYYYMMDD");
 
 router.post("/", isLoggedIn, async (req, res, next) => {
   try {
-    console.log(req.body);
     const goal = await Goal.create({
       goalTitle: req.body.goalTitle,
       startLine: req.body.startLine,
@@ -20,6 +19,21 @@ router.post("/", isLoggedIn, async (req, res, next) => {
     res.status(201).json(goal);
   } catch (error) {
     console.error(error);
+    next(error);
+  }
+});
+
+router.get("/load", isLoggedIn, async (req, res, next) => {
+  try {
+    const goal = await Goal.findAll({
+      where: {
+        UserId: req.user.id,
+      },
+      order: [["createdAt", "DESC"]],
+    });
+    res.status(201).json(goal);
+  } catch (err) {
+    console.error(err);
     next(error);
   }
 });
