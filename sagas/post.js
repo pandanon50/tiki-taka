@@ -17,7 +17,7 @@ import { ADD_POST_TO_ME } from "../reducers/user";
 function addPostAPI(data) {
   //제너레이터 x
   // 실제 백엔드와 연결되는 부분
-  return axios.post("/post", { month: data });
+  return axios.post("/post", data);
 }
 
 function* addPost(action) {

@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
 import { Collapse } from "antd";
-import DoneFail from "./DoneFail";
+import SuccessButton from "./SuccessButton";
+import DoneButton from "./DoneButton";
 import styled, { createGlobalStyle } from "styled-components";
 
 const { Panel } = Collapse;
@@ -20,10 +21,8 @@ const Global = createGlobalStyle`
 `;
 
 const GoalItem = ({ goal }) => {
-  const { goalName, cnt, id } = goal;
-
-  const num = cnt;
-
+  const { goalName, checkTotal, id, startLine, endLine } = goal;
+  console.log(goalName, checkTotal, id, startLine, endLine);
   // const Icon = () => {
   //   return "👉";
   // };
@@ -31,11 +30,15 @@ const GoalItem = ({ goal }) => {
     <div>
       <Global />
       <Collapse defaultActiveKey={["1"]} ghost>
-        {/*  goalName 퍼센트 보이는 컴포넌트로 변경 해야함  */}
         <Panel header={goalName} key={id}>
+          <div>시작일:{startLine}</div>
+          <div>끝나는일:{endLine}</div>
           <GridDiv>
-            {[...Array(num)].map((i) => (
-              <DoneFail key={i} />
+            {[...Array(checkTotal)].map((i) => (
+              <SuccessButton key={i} props={i} />
+            ))}
+            {[...Array(checkTotal)].map((i) => (
+              <DoneButton key={i} props={i} />
             ))}
           </GridDiv>
         </Panel>

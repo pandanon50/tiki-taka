@@ -3,6 +3,7 @@ import axios from "axios";
 
 import postSaga from "./post";
 import userSaga from "./user";
+import goalSaga from "./goal";
 
 // all input(배열) - > 배열안에 모든 것을 실행
 // fork fork는 함수를 실행 동기 함수 호출
@@ -17,5 +18,5 @@ axios.defaults.baseURL = "http://localhost:3065";
 axios.defaults.withCredentials = true; // COOKIE 허용하겠다
 
 export default function* rootSaga() {
-  yield all([fork(postSaga), fork(userSaga)]);
+  yield all([fork(postSaga), fork(userSaga), fork(goalSaga)]);
 }

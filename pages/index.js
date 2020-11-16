@@ -25,7 +25,9 @@ const Todo = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const { me } = useSelector((state) => state.user);
-  const { todos, addPostLoading } = useSelector((state) => state.post);
+  const { todos, addPostLoading, loadPostDone, addPostDone } = useSelector(
+    (state) => state.post
+  );
   console.log(todos);
 
   const showModal = () => {
@@ -39,6 +41,13 @@ const Todo = () => {
   const handleCancel = () => {
     setVisible(false);
   };
+
+  useEffect(() => {
+    dispatch({
+      type: LOAD_POST_REQUEST,
+    });
+  }, [loadPostDone, addPostDone]);
+
   return (
     <AppLayout>
       <div style={{ marginBottom: "20px" }}>
