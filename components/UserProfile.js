@@ -25,12 +25,20 @@ const UserProfile = () => {
   }
 
   return (
-    <div style={{ backgroundColor: "White" }}>
-      <Avatar>{me && me.nickname[0]}</Avatar>
-      <div>환영합니다! {me && me.nickname}님 </div>
-      <Button onClick={onLogOut} loading={logOutLoading}>
-        로그아웃
-      </Button>
+    <div className="user-profile" style={{ backgroundColor: "White" }}>
+      <div className="user-profile__left">
+        <Avatar style={{ backgroundColor: "#2F54EB" }}>
+          {me && me.nickname[0]}
+        </Avatar>
+      </div>
+      <div className="user-profile__right">
+        <div className="user-profile__name">
+          환영합니다! {me && me.nickname}님{" "}
+        </div>
+        <Button type="primary" onClick={onLogOut} loading={logOutLoading}>
+          로그아웃
+        </Button>
+      </div>
     </div>
   );
 };
