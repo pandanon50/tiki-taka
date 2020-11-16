@@ -4,6 +4,9 @@ import {
   ADD_GOAL_REQUEST,
   ADD_GOAL_FAILURE,
   ADD_GOAL_SUCCESS,
+  LOAD_GOAL_FAILURE,
+  LOAD_GOAL_SUCCESS,
+  LOAD_GOAL_REQUEST,
 } from "../reducers/goal";
 
 function addGoalAPI(data) {
@@ -27,10 +30,31 @@ function* addGoal(action) {
   }
 }
 
+function loadGoalAPI(data) {
+  return axios.get("/goal/load", data);
+}
+
+function* loadGoal(action) {
+  try {
+    const result = yield call(loadGoalAPI, action.data);
+    yield put({
+      type: LOAD_GOAL_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    yield put({
+      type: LOAD_GOAL_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchAddGoal() {
   yield takeLatest(ADD_GOAL_REQUEST, addGoal);
 }
-
+function* watchLoadGoal() {
+  yield takeLatest(LOAD_GOAL_REQUEST, loadGoal);
+}
 export default function* goalSaga() {
-  yield all([fork(watchAddGoal)]);
+  yield all([fork(watchAddGoal), fork(watchLoadGoal)]);
 }

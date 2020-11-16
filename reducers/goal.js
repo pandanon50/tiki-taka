@@ -16,6 +16,9 @@ export const initialState = {
 export const ADD_GOAL_REQUEST = "ADD_GOAL_REQUEST";
 export const ADD_GOAL_SUCCESS = "ADD_GOAL_SUCCESS";
 export const ADD_GOAL_FAILURE = "ADD_GOAL_FAILURE";
+export const LOAD_GOAL_REQUEST = "LOAD_GOAL_REQUEST";
+export const LOAD_GOAL_SUCCESS = "LOAD_GOAL_SUCCESS";
+export const LOAD_GOAL_FAILURE = "LOAD_GOAL_FAILURE";
 
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
@@ -32,6 +35,21 @@ const reducer = (state = initialState, action) => {
         draft.addGoalLoading = false;
         draft.addGoalDone = false;
         draft.addGoalError = action.error;
+        break;
+
+      case LOAD_GOAL_REQUEST:
+        draft.loadGoalLoading = true;
+        draft.loadGoalDone = false;
+        break;
+      case LOAD_GOAL_SUCCESS:
+        draft.loadGoalDone = true;
+        draft.loadGoalLoading = false;
+        draft.goals = action.data;
+        break;
+      case LOAD_GOAL_FAILURE:
+        draft.loadGoalLoading = false;
+        draft.loadGoalDone = false;
+        draft.loadGoalError = action.error;
         break;
       default:
         return state;
