@@ -25,6 +25,7 @@ module.exports = (sequelize, DataTypes) => {
   );
   User.associate = (db) => {
     db.User.hasMany(db.Post); // User 와 Post 간의 1:다 관계
+    db.User.hasMany(db.Goal);
   };
   return User;
 };

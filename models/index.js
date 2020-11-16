@@ -13,7 +13,7 @@ const sequelize = new Sequelize( // 시퀄라이즈가 node.js와 mysql를 연�
 
 db.User = require("./user")(sequelize, Sequelize);
 db.Post = require("./post")(sequelize, Sequelize);
-
+db.Goal = require("./goal")(sequelize, Sequelize);
 Object.keys(db).forEach((modelName) => {
   if (db[modelName].associate) {
     db[modelName].associate(db);

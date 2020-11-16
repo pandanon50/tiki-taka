@@ -5,17 +5,17 @@ const { Post, User } = require("../models");
 const { isLoggedIn } = require("./middlewares");
 
 const today = moment();
-console.log(today);
 const value = today.format("YYYYMMDD");
-console.log(value);
 
 router.get("/", isLoggedIn, async (req, res, next) => {
+  // TODO 가져오기 LOAD_POST
   try {
     const posts = await Post.findAll({
       where: {
         date: value,
         UserId: req.user.id,
       },
+      order: [["createdAt", "DESC"]],
     });
     res.status(201).json(posts);
   } catch (error) {
@@ -25,12 +25,14 @@ router.get("/", isLoggedIn, async (req, res, next) => {
 });
 
 router.post("/", isLoggedIn, async (req, res, next) => {
+  //MONTH DOTO 가져오기 LOAD_DATE_POST
   try {
     const posts = await Post.findAll({
       where: {
         date: req.body.month,
         UserId: req.user.id,
       },
+      order: [["createdAt", "DESC"]],
     });
     res.status(201).json(posts);
   } catch (error) {

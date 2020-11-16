@@ -9,6 +9,7 @@ const morgan = require("morgan");
 const passportConfig = require("./passport");
 const postRouter = require("./routes/post");
 const userRouter = require("./routes/user");
+const goalRouter = require("./routes/goal");
 const postsRouter = require("./routes/posts");
 const db = require("./models");
 
@@ -55,6 +56,7 @@ app.get("/", (req, res) => {
 app.use("/post", postRouter);
 app.use("/user", userRouter);
 app.use("/posts", postsRouter);
+app.use("/goal", goalRouter);
 
 app.listen(3065, () => {
   console.log("서버 실행중");
