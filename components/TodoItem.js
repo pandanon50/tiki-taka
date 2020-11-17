@@ -2,16 +2,28 @@ import React, { useCallback, useState, useSelector, useEffect } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
 import { useDispatch } from "react-redux";
-import { MinusCircleOutlined, CheckCircleOutlined } from "@ant-design/icons";
-import { CHECKED_POST_REQUEST } from "../reducers/post";
+import {
+  MinusCircleOutlined,
+  CheckCircleOutlined,
+  DeleteOutlined,
+} from "@ant-design/icons";
+import { CHECKED_POST_REQUEST, REMOVE_POST_REQUEST } from "../reducers/post";
 
-const TodoItem = ({ post }) => {
+const TodoItem = ({ post, month }) => {
   const dispatch = useDispatch();
-
+  console.log(month);
   const { content, date, checked, id } = post;
 
   const [end, setEnd] = useState(checked);
 
+  const onClickDelete = useCallback(() => {
+    if (!month) {
+      dispatch({
+        type: REMOVE_POST_REQUEST,
+        data: id,
+      });
+    }
+  }, []);
   const style = {
     backgroundColor: "#f0f0f0",
     color: "#595959",
@@ -25,12 +37,14 @@ const TodoItem = ({ post }) => {
   // useEffect(() => {}, [end]);
 
   const onToggle = useCallback(() => {
-    setEnd((prev) => !prev);
-    console.log(id, end);
-    dispatch({
-      type: CHECKED_POST_REQUEST,
-      data: { checked: !checked, postId: id },
-    });
+    if (!month) {
+      setEnd((prev) => !prev);
+      console.log(id, end);
+      dispatch({
+        type: CHECKED_POST_REQUEST,
+        data: { checked: !checked, postId: id },
+      });
+    }
   }, [end]);
 
   return (
@@ -39,17 +53,22 @@ const TodoItem = ({ post }) => {
         <CheckCircleOutlined
           style={{ color: "#2f54eb", fontSize: "16px" }}
           onClick={onToggle}
+          disabled={month}
         />
       ) : (
         //true
         <MinusCircleOutlined
           style={{ color: "black", fontSize: "16px" }}
           onClick={onToggle}
+          disabled={month}
         />
       )}
       <div className="textBox" style={end ? style2 : style}>
         <div className="textBox__imo">😀</div>
         <div className="textBox__text">{content}</div>
+        <div className="textBox__remove">
+          <DeleteOutlined onClick={onClickDelete} disabled={month} />
+        </div>
       </div>
     </div>
   );

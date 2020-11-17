@@ -13,9 +13,31 @@ import {
   CHECKED_POST_REQUEST,
   CHECKED_POST_FAILURE,
   CHECKED_POST_SUCCESS,
+  REMOVE_POST_REQUEST,
+  REMOVE_POST_FAILURE,
+  REMOVE_POST_SUCCESS,
 } from "../reducers/post";
 
 import { ADD_POST_TO_ME } from "../reducers/user";
+
+function removePostAPI(data) {
+  return axios.delete(`/post/${data}`);
+}
+
+function* removePost(action) {
+  try {
+    const result = yield call(removePostAPI, action.data);
+    yield put({
+      type: REMOVE_POST_SUCCESS,
+      data: result.data,
+    });
+  } catch (err) {
+    yield put({
+      type: REMOVE_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
 
 function addPostAPI(data) {
   //제너레이터 x
@@ -91,6 +113,7 @@ function* checkedPost(action) {
     const result = yield call(checkedPostAPI, action.data);
     yield put({
       type: CHECKED_POST_SUCCESS,
+      data: result.data,
     });
   } catch (err) {
     yield put({
@@ -115,11 +138,16 @@ function* watchCheckedPost() {
   yield takeLatest(CHECKED_POST_REQUEST, checkedPost);
 }
 
+function* watchRemovePost() {
+  yield takeLatest(REMOVE_POST_REQUEST, removePost);
+}
+
 export default function* postSaga() {
   yield all([
     fork(watchAddPost),
     fork(watchLoadPost),
     fork(watchDatePost),
     fork(watchCheckedPost),
+    fork(watchRemovePost),
   ]);
 }

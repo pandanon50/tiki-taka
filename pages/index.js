@@ -54,7 +54,10 @@ const Todo = () => {
         <TodoForm />
       </div>
       <TodosWrapper className="todosWrapper">
-        {todos && todos.map((post) => <TodoItem key={post.id} post={post} />)}
+        {todos &&
+          todos.map((post) => (
+            <TodoItem key={post.id} post={post} month={false} />
+          ))}
       </TodosWrapper>
     </AppLayout>
   );

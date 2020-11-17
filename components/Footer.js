@@ -65,7 +65,7 @@ const Footer = () => {
           </Link>
         </li>
         <li className="footer-list__item">
-          <AudioOutlined onClick={showModal} on />
+          <AudioOutlined style={{ zIndex: "8" }} onClick={showModal} />
           <Modal
             title=""
             visible={visible}

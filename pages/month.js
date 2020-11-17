@@ -51,7 +51,9 @@ const month = () => {
 
       <TodosWrapper className="todosWrapper">
         {monthTodos &&
-          monthTodos.map((post) => <TodoItem key={post.id} post={post} />)}
+          monthTodos.map((post) => (
+            <TodoItem key={post.id} post={post} month={true} />
+          ))}
       </TodosWrapper>
       <Footer />
     </AppLayout>
