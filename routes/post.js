@@ -31,6 +31,25 @@ router.post("/", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.post("/check", async (req, res, next) => {
+  try {
+    await Post.update(
+      {
+        checked: req.body.checked,
+      },
+      {
+        where: {
+          id: req.body.postId,
+        },
+      }
+    );
+    // res.status(201).json();
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 router.delete("/", (req, res) => {
   res.json({ id: 1 });
 });
