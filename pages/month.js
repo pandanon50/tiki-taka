@@ -5,6 +5,7 @@ import { Calendar } from "antd";
 import styled from "styled-components";
 import moment from "moment";
 import axios from "axios";
+import Footer from "../components/Footer";
 import { END } from "redux-saga";
 import { useDispatch, useSelector } from "react-redux";
 import { LOAD_MY_INFO_REQUEST } from "../reducers/user";
@@ -47,10 +48,12 @@ const month = () => {
         />
       </MonthDiv>
       <div>{value && value.format("YYYYMMDD")}</div>
+
       <TodosWrapper className="todosWrapper">
         {monthTodos &&
           monthTodos.map((post) => <TodoItem key={post.id} post={post} />)}
       </TodosWrapper>
+      <Footer />
     </AppLayout>
   );
 };

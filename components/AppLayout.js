@@ -1,14 +1,19 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
+// import { initMic } from "../Speech/micSet";
 import Link from "next/link";
-import { Menu, Col, Row } from "antd";
+import { Menu, Col, Row, Modal } from "antd";
 import { HomeOutlined, AudioOutlined, HeartOutlined } from "@ant-design/icons";
 import LoginForm from "./LoginForm";
 import Today from "./Today";
 import { useSelector } from "react-redux";
 import UserProfile from "./UserProfile";
+import Footer from "../components/Footer";
+
 const AppLayout = ({ children }) => {
   const { me } = useSelector((state) => state.user);
+
+  useEffect(() => {}, []);
   return (
     <div>
       <Row>
@@ -21,7 +26,7 @@ const AppLayout = ({ children }) => {
             <Menu mode="horizontal">
               <Menu.Item>
                 <Link href="/">
-                  <a>Today</a>
+                  <a>Todo</a>
                 </Link>
               </Menu.Item>
               <Menu.Item>
@@ -37,31 +42,7 @@ const AppLayout = ({ children }) => {
             </Menu>
           </div>
           <div className="pageWrapper">{children}</div>
-          <div className="footer">
-            <ul className="footer-list">
-              <li className="footer-list__item">
-                <Link href="/">
-                  <a>
-                    <HomeOutlined />
-                  </a>
-                </Link>
-              </li>
-              <li className="footer-list__item">
-                <Link href="/goal">
-                  <a>
-                    <AudioOutlined />
-                  </a>
-                </Link>
-              </li>
-              <li className="footer-list__item">
-                <Link href="/signup">
-                  <a>
-                    <HeartOutlined />
-                  </a>
-                </Link>
-              </li>
-            </ul>
-          </div>
+          <Footer />
         </Col>
         <Col xs={24} md={6}></Col>
       </Row>

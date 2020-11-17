@@ -12,13 +12,19 @@ export const initialState = {
   datePostDone: false,
   datePostError: null,
   monthTodos: null,
+  checkLoading: false,
+  checkDone: false,
+  checkError: null,
 };
 
 export const ADD_POST_REQUEST = "ADD_POST_REQUEST";
 export const ADD_POST_SUCCESS = "ADD_POST_SUCCESS";
 export const ADD_POST_FAILURE = "ADD_POST_FAILURE";
 export const TODOS_REMOVER = "TODOS_REMOVER";
-const CHECKED_POST = "CHECKED_POST"; //보류
+
+export const REMOVE_POST_REQUEST = "REMOVE_POST_REQUEST";
+export const REMOVE_POST_SUCCESS = "REMOVE_POST_SUCCESS";
+export const REMOVE_POST_FAILURE = "REMOVE_POST_FAILURE";
 
 export const LOAD_POST_REQUEST = "LOAD_POST_REQUEST";
 export const LOAD_POST_SUCCESS = "LOAD_POST_SUCCESS";
@@ -27,6 +33,10 @@ export const LOAD_POST_FAILURE = "LOAD_POST_FAILURE";
 export const LOAD_DATE_POST_REQUEST = "LOAD_DATE_POST_REQUEST";
 export const LOAD_DATE_POST_SUCCESS = "LOAD_DATE_POST_SUCCESS";
 export const LOAD_DATE_POST_FAILURE = "LOAD_DATE_POST_FAILURE";
+
+export const CHECKED_POST_REQUEST = "CHECKED_POST_REQUEST";
+export const CHECKED_POST_SUCCESS = "CHECKED_POST_SUCCESS";
+export const CHECKED_POST_FAILURE = "CHECKED_POST_FAILURE";
 
 export const addPostRequestAction = (data) => ({
   type: ADD_POST_REQUEST,
@@ -43,6 +53,17 @@ export const checkedPostRequest = (id) => {
 const reducer = (state = initialState, action) => {
   return produce(state, (draft) => {
     switch (action.type) {
+      case CHECKED_POST_REQUEST:
+        draft.checkLoading = true;
+        break;
+      case CHECKED_POST_SUCCESS:
+        draft.checkLoading = false;
+        draft.checkDone = true;
+        break;
+      case CHECKED_POST_FAILURE:
+        draft.checkLoading = false;
+        draft.checkError = action.error;
+        break;
       case LOAD_DATE_POST_REQUEST:
         draft.datePostLoading = true;
         draft.datePostDone = false;

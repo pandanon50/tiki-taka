@@ -51,17 +51,6 @@ const Todo = () => {
   return (
     <AppLayout>
       <div style={{ marginBottom: "20px" }}>
-        {/* <Button type="primary" loading={addPostLoading} onClick={showModal}>
-          +
-        </Button>
-        <Modal
-          title="Basic Modal"
-          visible={visible}
-          onOk={handleOk}
-          onCancel={handleCancel}
-        >
-          <TodoForm />
-        </Modal> */}
         <TodoForm />
       </div>
       <TodosWrapper className="todosWrapper">

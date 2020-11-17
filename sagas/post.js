@@ -10,6 +10,9 @@ import {
   LOAD_DATE_POST_FAILURE,
   LOAD_DATE_POST_REQUEST,
   LOAD_DATE_POST_SUCCESS,
+  CHECKED_POST_REQUEST,
+  CHECKED_POST_FAILURE,
+  CHECKED_POST_SUCCESS,
 } from "../reducers/post";
 
 import { ADD_POST_TO_ME } from "../reducers/user";
@@ -77,6 +80,26 @@ function* datePost(action) {
   }
 }
 
+function checkedPostAPI(data) {
+  //제너레이터 x
+  // 실제 백엔드와 연결되는 부분
+  return axios.post(`/post/check`, data);
+}
+
+function* checkedPost(action) {
+  try {
+    const result = yield call(checkedPostAPI, action.data);
+    yield put({
+      type: CHECKED_POST_SUCCESS,
+    });
+  } catch (err) {
+    yield put({
+      type: CHECKED_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
 function* watchLoadPost() {
   yield takeLatest(LOAD_POST_REQUEST, loadPost);
 }
@@ -88,6 +111,15 @@ function* watchDatePost() {
   yield takeLatest(LOAD_DATE_POST_REQUEST, datePost);
 }
 
+function* watchCheckedPost() {
+  yield takeLatest(CHECKED_POST_REQUEST, checkedPost);
+}
+
 export default function* postSaga() {
-  yield all([fork(watchAddPost), fork(watchLoadPost), fork(watchDatePost)]);
+  yield all([
+    fork(watchAddPost),
+    fork(watchLoadPost),
+    fork(watchDatePost),
+    fork(watchCheckedPost),
+  ]);
 }
