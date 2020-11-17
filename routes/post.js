@@ -31,7 +31,7 @@ router.post("/", isLoggedIn, async (req, res, next) => {
   }
 });
 
-router.post("/check", async (req, res, next) => {
+router.post("/check", isLoggedIn, async (req, res, next) => {
   try {
     await Post.update(
       {
@@ -43,15 +43,26 @@ router.post("/check", async (req, res, next) => {
         },
       }
     );
-    // res.status(201).json();
+    res.status(201).json(req.body.postId);
   } catch (error) {
     console.error(error);
     next(error);
   }
 });
 
-router.delete("/", (req, res) => {
-  res.json({ id: 1 });
+router.delete("/:postId", isLoggedIn, async (req, res, next) => {
+  try {
+    await Post.destroy({
+      where: {
+        id: req.params.postId,
+        UserId: req.user.id,
+      },
+    });
+    res.status(200).json({ PostId: parseInt(req.params.postId) });
+  } catch (err) {
+    console.error(err);
+    next(err);
+  }
 });
 
 module.exports = router;
