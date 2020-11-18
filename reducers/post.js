@@ -26,6 +26,7 @@ export const initialState = {
   findCheckError: null,
   findItem: null,
   checkItem: null,
+  checkTodos: null,
 };
 
 export const ADD_POST_REQUEST = "ADD_POST_REQUEST";
@@ -114,10 +115,13 @@ const reducer = (state = initialState, action) => {
         break;
       case CHECKED_POST_REQUEST:
         draft.checkLoading = true;
+        draft.datePostDone = false;
         break;
       case CHECKED_POST_SUCCESS:
         draft.checkLoading = false;
         draft.checkDone = true;
+        draft.todos = draft.todos.filter((v) => v.id !== action.data[0].id);
+        draft.todos = action.data;
         break;
       case CHECKED_POST_FAILURE:
         draft.checkLoading = false;

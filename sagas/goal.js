@@ -60,11 +60,11 @@ function* goalCheck(action) {
   try {
     const result = yield call(goalCheckAPI, action.data);
     yield put({
-      type: LOAD_GOAL_SUCCESS,
+      type: GOAL_CHECK_SUCCESS,
     });
   } catch (err) {
     yield put({
-      type: LOAD_GOAL_FAILURE,
+      type: GOAL_CHECK_FAILURE,
       error: err.response.data,
     });
   }

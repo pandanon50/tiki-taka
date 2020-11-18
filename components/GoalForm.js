@@ -35,7 +35,12 @@ const LoginForm = () => {
 
   const toggleChecked = useCallback(() => {
     setChecked((prev) => !prev);
-  }, []);
+    console.log(checked);
+    console.log(everydayCount);
+    if (everydayCount) {
+      setCheckTotal(everydayCount);
+    }
+  }, [checked]);
 
   const onChangeGoalDate = useCallback((dates, dateStrings) => {
     if (dates != null) {
@@ -48,7 +53,8 @@ const LoginForm = () => {
         moment.duration(dates[1].diff(dates[0])).asDays()
       );
 
-      setEverydayCount(moment.duration(dates[1].diff(dates[0])).asDays() + 1);
+      setEverydayCount(moment.duration(dates[1].diff(dates[0])).asDays());
+      console.log(everydayCount);
       setStartLine(dates[0].format("YYYYMMDD"));
       setEndLine(dates[1].format("YYYYMMDD"));
     }
@@ -95,6 +101,7 @@ const LoginForm = () => {
         <label htmlFor="goal-date">날짜 설정:</label>
         <RangePicker
           htmlFor="goal-date"
+          size="smail"
           onChange={onChangeGoalDate}
           disabledDate={disabledDate}
         />

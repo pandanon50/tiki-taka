@@ -26,7 +26,7 @@ const SuccessButton = ({ props }) => {
   return (
     <div>
       <Popconfirm
-        title="하루 6km 걷기 하셧나요?? (수정이 불가합니다!)"
+        title="목표를 달성하셨나요?? (수정불가)"
         style={{ color: "red" }}
         onConfirm={confirm}
         onCancel={cancel}

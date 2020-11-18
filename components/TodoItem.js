@@ -1,7 +1,7 @@
-import React, { useCallback, useState, useSelector, useEffect } from "react";
+import React, { useCallback, useState, useEffect } from "react";
 import PropTypes from "prop-types";
 import moment from "moment";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
   MinusCircleOutlined,
   CheckCircleOutlined,
@@ -11,7 +11,8 @@ import { CHECKED_POST_REQUEST, REMOVE_POST_REQUEST } from "../reducers/post";
 
 const TodoItem = ({ post, month }) => {
   const dispatch = useDispatch();
-  console.log(month);
+  const { checkDone } = useSelector((state) => state.post);
+
   const { content, date, checked, id } = post;
 
   const [end, setEnd] = useState(checked);
@@ -34,8 +35,6 @@ const TodoItem = ({ post, month }) => {
     color: "white",
   };
 
-  // useEffect(() => {}, [end]);
-
   const onToggle = useCallback(() => {
     if (!month) {
       setEnd((prev) => !prev);
@@ -45,11 +44,11 @@ const TodoItem = ({ post, month }) => {
         data: { checked: !checked, postId: id },
       });
     }
-  }, [end]);
+  }, [end, checked]);
 
   return (
     <div className="todoItemWrapper">
-      {end ? ( //false
+      {checked ? ( //false
         <CheckCircleOutlined
           style={{ color: "#2f54eb", fontSize: "16px" }}
           onClick={onToggle}
@@ -63,7 +62,7 @@ const TodoItem = ({ post, month }) => {
           disabled={month}
         />
       )}
-      <div className="textBox" style={end ? style2 : style}>
+      <div className="textBox" style={checked ? style2 : style}>
         <div className="textBox__imo">😀</div>
         <div className="textBox__text">{content}</div>
         <div className="textBox__remove">

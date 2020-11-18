@@ -15,7 +15,7 @@ const { Panel } = Collapse;
 
 const Goal = () => {
   const dispatch = useDispatch();
-  const { goals, loadGaolDone, addGoalDone, goalCheckDone } = useSelector(
+  const { goals, loadGoalDone, addGoalDone, goalCheckDone } = useSelector(
     (state) => state.goal
   );
 
@@ -23,7 +23,7 @@ const Goal = () => {
     dispatch({
       type: LOAD_GOAL_REQUEST,
     });
-  }, [addGoalDone, loadGaolDone, goalCheckDone]);
+  }, [addGoalDone, loadGoalDone]);
 
   return (
     <AppLayout>

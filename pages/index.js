@@ -25,9 +25,13 @@ const Todo = () => {
   const dispatch = useDispatch();
   const [visible, setVisible] = useState(false);
   const { me } = useSelector((state) => state.user);
-  const { todos, addPostLoading, loadPostDone, addPostDone } = useSelector(
-    (state) => state.post
-  );
+  const {
+    todos,
+    addPostLoading,
+    loadPostDone,
+    addPostDone,
+    checkDone,
+  } = useSelector((state) => state.post);
   console.log(todos);
 
   const showModal = () => {

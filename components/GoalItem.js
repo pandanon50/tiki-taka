@@ -34,11 +34,11 @@ const GoalItem = ({ goal }) => {
           <div>시작일:{startLine}</div>
           <div>끝나는일:{endLine}</div>
           <GridDiv>
-            {checkDone &&
+            {checkDone !== 0 &&
               [...Array(checkDone)].map((i) => (
                 <DoneButton key={i} props={id} />
               ))}
-            {checkTotal - checkDone < 0 &&
+            {checkTotal - checkDone > 0 &&
               [...Array(checkTotal - checkDone)].map((i) => (
                 <SuccessButton key={i} props={id} />
               ))}

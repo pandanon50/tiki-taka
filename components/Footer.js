@@ -74,11 +74,12 @@ const Footer = () => {
           style={{ color: "#1890ff", zIndex: "8" }}
         >
           <Modal
-            title=""
+            title="날짜 + 일정 + 기능 순서로 말해주세요"
             visible={visible}
             onOk={handleOk}
             onCancel={handleCancel}
           >
+            <br />
             <div>{str}</div>
           </Modal>
           <AudioOutlined onClick={showModal} />
