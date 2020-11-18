@@ -43,7 +43,12 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
         },
       }
     );
-    res.status(201).json(req.body.postId);
+    const post = await Post.findAll({
+      where: {
+        id: req.body.postId,
+      },
+    });
+    res.status(201).json(post);
   } catch (error) {
     console.error(error);
     next(error);
