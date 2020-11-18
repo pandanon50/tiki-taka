@@ -38,4 +38,24 @@ router.get("/load", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.post("/check", isLoggedIn, async (req, res, next) => {
+  try {
+    const goal = await Goal.increment(
+      {
+        checkDone: 1,
+      },
+      {
+        where: {
+          UserId: req.user.id,
+          id: req.body.goalId,
+        },
+      }
+    );
+    res.status(201).json(goal);
+  } catch (err) {
+    console.error(err);
+    next(error);
+  }
+});
+
 module.exports = router;

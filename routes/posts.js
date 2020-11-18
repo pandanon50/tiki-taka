@@ -41,4 +41,23 @@ router.post("/", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.post("/find", async (req, res, next) => {
+  try {
+    const posts = await Post.findAll({
+      where: {
+        date: req.body.date,
+        UserId: req.user.id,
+        content: req.body.content,
+      },
+    });
+    if (posts) {
+      res.status(201).json(posts);
+    }
+    return res.status(201).json(null);
+  } catch (error) {
+    console.error(error);
+    next(error);
+  }
+});
+
 module.exports = router;
