@@ -16,6 +16,12 @@ import {
   REMOVE_POST_REQUEST,
   REMOVE_POST_FAILURE,
   REMOVE_POST_SUCCESS,
+  FIND_POST_FAILURE,
+  FIND_POST_SUCCESS,
+  FIND_POST_REQUEST,
+  FIND_CHECK_REQUEST,
+  FIND_CHECK_SUCCESS,
+  FIND_CHECK_FAILURE,
 } from "../reducers/post";
 
 import { ADD_POST_TO_ME } from "../reducers/user";
@@ -123,6 +129,59 @@ function* checkedPost(action) {
   }
 }
 
+function findPostAPI(data) {
+  return axios.post("/posts/find", data);
+}
+
+function* findPost(action) {
+  try {
+    const result = yield call(findPostAPI, action.data);
+    yield put({
+      type: FIND_POST_SUCCESS,
+      data: result.data,
+    });
+    if (result) {
+      yield put({
+        type: REMOVE_POST_REQUEST,
+        data: result.data[0].id,
+      });
+    }
+  } catch (err) {
+    yield put({
+      type: FIND_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function findCheckAPI(data) {
+  return axios.post("/posts/find", data);
+}
+function* findCheck(action) {
+  try {
+    const result = yield call(findCheckAPI, action.data);
+    yield put({
+      type: FIND_POST_SUCCESS,
+      data: result.data,
+    });
+    if (result) {
+      yield put({
+        type: CHECKED_POST_REQUEST,
+        data: { checked: !result.data[0].checked, postId: result.data[0].id },
+      });
+    }
+  } catch (err) {
+    yield put({
+      type: FIND_POST_FAILURE,
+      error: err.response.data,
+    });
+  }
+}
+
+function* watchFindPost() {
+  yield takeLatest(FIND_POST_REQUEST, findPost);
+}
+
 function* watchLoadPost() {
   yield takeLatest(LOAD_POST_REQUEST, loadPost);
 }
@@ -142,6 +201,10 @@ function* watchRemovePost() {
   yield takeLatest(REMOVE_POST_REQUEST, removePost);
 }
 
+function* watchFindCheckPost() {
+  yield takeLatest(FIND_CHECK_REQUEST, findCheck);
+}
+
 export default function* postSaga() {
   yield all([
     fork(watchAddPost),
@@ -149,5 +212,7 @@ export default function* postSaga() {
     fork(watchDatePost),
     fork(watchCheckedPost),
     fork(watchRemovePost),
+    fork(watchFindPost),
+    fork(watchFindCheckPost),
   ]);
 }

@@ -1,6 +1,6 @@
 import React, { useCallback, useState, useEffect } from "react";
 import useInput from "../hooks/useInput";
-import AppLayout from "../components/Applayout";
+import AppLayout from "./Applayout";
 import HEAD from "next/head";
 import styled from "styled-components";
 import { useDispatch, useSelector } from "react-redux";
@@ -11,7 +11,7 @@ const ErrorMessage = styled.div`
   color: red;
 `;
 
-const signup = () => {
+const SignUp = () => {
   const dispatch = useDispatch();
   const { signUpError, singUpLoading, signUpDone, me } = useSelector(
     (state) => state.user
@@ -137,4 +137,4 @@ const signup = () => {
   );
 };
 
-export default signup;
+export default SignUp;

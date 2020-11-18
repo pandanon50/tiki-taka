@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from "react";
+import React, { useState, useCallback, useEffect } from "react";
 import AppLayout from "../components/AppLayout";
 import TodoItem from "../components/TodoItem";
 import { Calendar } from "antd";
@@ -32,6 +32,10 @@ const month = () => {
     setValue(value);
   }, []);
 
+  useEffect(() => {
+    dispatch({ type: LOAD_DATE_POST_REQUEST, data: value.format("YYYYMMDD") }); //달력 클릭하면 나오는 액션 만들기
+  }, []);
+
   const onSelectDate = useCallback((value) => {
     setValue(value);
     dispatch({ type: LOAD_DATE_POST_REQUEST, data: value.format("YYYYMMDD") }); //달력 클릭하면 나오는 액션 만들기
@@ -39,7 +43,7 @@ const month = () => {
 
   return (
     <AppLayout>
-      <MonthDiv>
+      <MonthDiv style={{ marginBottom: "15px" }}>
         <Calendar
           value={value}
           onSelect={onSelectDate}
@@ -47,8 +51,6 @@ const month = () => {
           onPanelChange={onPanelChange}
         />
       </MonthDiv>
-      <div>{value && value.format("YYYYMMDD")}</div>
-
       <TodosWrapper className="todosWrapper">
         {monthTodos &&
           monthTodos.map((post) => (

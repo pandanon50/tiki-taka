@@ -1,6 +1,7 @@
 import { getToDoDate, getToDoText } from "./speechSplit";
 
 import axios from "axios";
+import { FIND_CHECK_REQUEST } from "../reducers/post";
 //iscom =>
 export const todoCheck = (te, iscom) => {
   let obj = getToDoDate(te);
@@ -10,11 +11,10 @@ export const todoCheck = (te, iscom) => {
   let text = getToDoText(te, dt); // 할일 text
 
   const data = {
-    type: TODO_CHECK_REQUEST,
+    type: FIND_CHECK_REQUEST,
     data: {
       date: TODOS_LS,
       content: text,
-      checked: iscom,
     },
   };
   return data;

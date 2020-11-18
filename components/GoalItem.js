@@ -21,7 +21,7 @@ const Global = createGlobalStyle`
 `;
 
 const GoalItem = ({ goal }) => {
-  const { goalTitle, checkTotal, id, startLine, endLine } = goal;
+  const { goalTitle, checkTotal, checkDone, id, startLine, endLine } = goal;
   console.log(goalTitle, checkTotal, id, startLine, endLine);
   // const Icon = () => {
   //   return "👉";
@@ -29,18 +29,19 @@ const GoalItem = ({ goal }) => {
   return (
     <div>
       <Global />
-      <Collapse
-        style={{ border: "1px solid black" }}
-        defaultActiveKey={["1"]}
-        ghost
-      >
+      <Collapse defaultActiveKey={["1"]} ghost>
         <Panel header={goalTitle} key={id}>
           <div>시작일:{startLine}</div>
           <div>끝나는일:{endLine}</div>
           <GridDiv>
-            {[...Array(checkTotal)].map((i) => (
-              <SuccessButton key={i} props={i} />
-            ))}
+            {checkDone &&
+              [...Array(checkDone)].map((i) => (
+                <DoneButton key={i} props={id} />
+              ))}
+            {checkTotal - checkDone < 0 &&
+              [...Array(checkTotal - checkDone)].map((i) => (
+                <SuccessButton key={i} props={id} />
+              ))}
           </GridDiv>
         </Panel>
       </Collapse>

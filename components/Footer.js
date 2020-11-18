@@ -2,15 +2,21 @@ import React, { useEffect, useState } from "react";
 import { initMic } from "../Speech/micSet";
 import { Modal } from "antd";
 import Link from "next/link";
-import { ADD_POST_REQUEST, LOAD_DATE_POST_REQUEST } from "../reducers/post";
+import {
+  ADD_POST_REQUEST,
+  FIND_POST_REQUEST,
+  LOAD_DATE_POST_REQUEST,
+  REMOVE_POST_REQUEST,
+} from "../reducers/post";
 import { useDispatch, useSelector } from "react-redux";
 import { UpdateSpeech } from "../Speech/speechAction";
 import { ret, recognition, clearRet } from "../Speech/speechStart";
-import { HomeOutlined, AudioOutlined, HeartOutlined } from "@ant-design/icons";
+import { HomeOutlined, AudioOutlined, UserOutlined } from "@ant-design/icons";
 import { SpeechText } from "../Speech/Text2Speech";
+
 const Footer = () => {
   const dispatch = useDispatch();
-  const { monthTodos } = useSelector((state) => state.post);
+  const { monthTodos, findItem } = useSelector((state) => state.post);
   const [visible, setVisible] = useState(false);
   const [str, setStr] = useState("");
 
@@ -28,7 +34,6 @@ const Footer = () => {
       }
       SpeechText("일정이 있습니다.");
     }
-
     setStr("");
     clearRet();
   };
@@ -64,8 +69,10 @@ const Footer = () => {
             </a>
           </Link>
         </li>
-        <li className="footer-list__item">
-          <AudioOutlined style={{ zIndex: "8" }} onClick={showModal} />
+        <li
+          className="footer-list__item"
+          style={{ color: "#1890ff", zIndex: "8" }}
+        >
           <Modal
             title=""
             visible={visible}
@@ -74,6 +81,8 @@ const Footer = () => {
           >
             <div>{str}</div>
           </Modal>
+          <AudioOutlined onClick={showModal} />
+
           {/* <Link href="/goal">
                   <a>
                     
@@ -81,9 +90,9 @@ const Footer = () => {
                 </Link> */}
         </li>
         <li className="footer-list__item">
-          <Link href="/signup">
+          <Link href="/user">
             <a>
-              <HeartOutlined />
+              <UserOutlined />
             </a>
           </Link>
         </li>

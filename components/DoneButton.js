@@ -5,7 +5,9 @@ import { Button } from "antd";
 const DoneButton = () => {
   return (
     <div>
-      <Button type="primary"> </Button>
+      <Button type="primary" disabled={true}>
+        {" "}
+      </Button>
     </div>
   );
 };

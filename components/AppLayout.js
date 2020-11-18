@@ -21,7 +21,6 @@ const AppLayout = ({ children }) => {
         <Col style={{ minHeight: "667px" }} xs={24} md={12}>
           {" "}
           <Today />
-          {!me && <LoginForm />}
           <div>
             <Menu mode="horizontal">
               <Menu.Item>

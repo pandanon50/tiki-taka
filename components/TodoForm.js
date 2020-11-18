@@ -47,8 +47,6 @@ const TodoForm = () => {
         <label htmlFor="dos">DATE:</label>
         <br />
         <DatePicker onChange={onChangeDate} />
-      </div>
-      <div>
         <Button
           type="primary"
           style={{ backgroundColor: "2f54eb" }}

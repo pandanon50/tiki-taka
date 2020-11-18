@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useEffect } from "react";
 import { Form, Input, Button } from "antd";
-//import Link from "next/link";
+import Link from "next/link";
 import styled from "styled-components";
 //import PropTypes from "prop-types";
 import { useDispatch, useSelector } from "react-redux";
@@ -70,6 +70,11 @@ const LoginForm = () => {
         <Button type="primary" htmlType="submit" loading={logInLoading}>
           로그인
         </Button>
+        <Link href="/signup">
+          <a>
+            <Button>회원가입</Button>
+          </a>
+        </Link>
       </SubmitWrapper>
     </FormWrapper>
   );
