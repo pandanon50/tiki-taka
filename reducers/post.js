@@ -26,6 +26,7 @@ export const initialState = {
   findCheckError: null,
   findItem: null,
   checkItem: null,
+  index: 0,
   checkTodos: null,
 };
 
@@ -120,8 +121,12 @@ const reducer = (state = initialState, action) => {
       case CHECKED_POST_SUCCESS:
         draft.checkLoading = false;
         draft.checkDone = true;
-        draft.todos = draft.todos.filter((v) => v.id !== action.data[0].id);
-        draft.todos = action.data;
+        draft.index = draft.todos.findIndex(
+          (obj) => obj.id === action.data[0].id
+        );
+        draft.todos = draft.todos.filter((v, i) => v.id !== action.data[0].id);
+        console.log(draft.index);
+        draft.todos.splice(draft.index, 0, action.data[0]);
         break;
       case CHECKED_POST_FAILURE:
         draft.checkLoading = false;

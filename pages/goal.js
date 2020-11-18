@@ -38,7 +38,9 @@ const Goal = () => {
           <GoalForm />
         </Panel>
       </Collapse>
-      {goals && goals.map((goal) => <GoalItem key={goal.id} goal={goal} />)}
+      <div style={{ marginBottom: "15px" }}>
+        {goals && goals.map((goal) => <GoalItem key={goal.id} goal={goal} />)}
+      </div>
     </AppLayout>
   );
 };

@@ -9,8 +9,8 @@ const { Panel } = Collapse;
 
 const GridDiv = styled.div`
   display: grid;
-  grid-template-columns: repeat(7, 1fr);
-  grid-template-rows: repeat(7, 1fr);
+  grid-template-columns: repeat(12, 3fr);
+  grid-template-rows: repeat(12, 5fr);
   grid-gap: 3px;
 `;
 
