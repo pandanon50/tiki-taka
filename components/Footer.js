@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { initMic } from "../Speech/micSet";
-import { Modal } from "antd";
+import { message, Modal } from "antd";
 import Link from "next/link";
 import {
   ADD_POST_REQUEST,
@@ -13,26 +13,37 @@ import { UpdateSpeech } from "../Speech/speechAction";
 import { ret, recognition, clearRet } from "../Speech/speechStart";
 import { HomeOutlined, AudioOutlined, UserOutlined } from "@ant-design/icons";
 import { SpeechText } from "../Speech/Text2Speech";
+import Router from "next/router";
 
 const Footer = () => {
   const dispatch = useDispatch();
-  const { monthTodos, findItem } = useSelector((state) => state.post);
+  const { me } = useSelector((state) => state.user);
+  const { todos, monthTodos, findItem } = useSelector((state) => state.post);
   const [visible, setVisible] = useState(false);
   const [str, setStr] = useState("");
 
-  const handleOk = () => {
+  const handleOk = async () => {
     setVisible(false);
     const e = UpdateSpeech(ret);
     // console.log(UpdateSpeech(ret));
-    dispatch(e);
+    await dispatch(e);
     // 모든 today 읽어주기
     if (e.type === LOAD_DATE_POST_REQUEST) {
-      console.log(monthTodos);
-      let a = monthTodos.length;
-      for (let i = 0; i < a; i++) {
-        SpeechText(monthTodos[i].content);
+      if (todos !== null && monthTodos === null) {
+        let a = todos.length;
+        for (let i = 0; i < a; i++) {
+          SpeechText(todos[i].content);
+        }
+        SpeechText("일정이 있습니다.");
+      } else if (todos === null && monthTodos !== null) {
+        let a = monthTodos.length;
+        for (let i = 0; i < a; i++) {
+          SpeechText(monthTodos[i].content);
+        }
+        SpeechText("일정이 있습니다.");
+      } else {
+        SpeechText("일정이 없습니다.");
       }
-      SpeechText("일정이 있습니다.");
     }
     setStr("");
     clearRet();
@@ -49,8 +60,13 @@ const Footer = () => {
   };
 
   const showModal = () => {
-    setVisible(true);
-    initMic();
+    if (!me) {
+      message.error("로그인이 필요합니다.");
+      Router.replace("/user");
+    } else {
+      setVisible(true);
+      initMic();
+    }
   };
 
   if (typeof window !== "undefined") {
