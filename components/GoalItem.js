@@ -23,7 +23,6 @@ const Global = createGlobalStyle`
 
 const GoalItem = ({ goal }) => {
   const { goalTitle, checkTotal, checkDone, id, startLine, endLine } = goal;
-  console.log(goalTitle, checkTotal, id, startLine, endLine);
 
   const onClickRemove = useCallback(() => {
     console.log("hi");
