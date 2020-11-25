@@ -58,4 +58,19 @@ router.post("/check", isLoggedIn, async (req, res, next) => {
   }
 });
 
+router.delete("/:goalId", isLoggedIn, async (req, res, next) => {
+  try {
+    await Goal.destroy({
+      where: {
+        id: req.params.goalId,
+        UserId: req.user.id,
+      },
+    });
+    res.status(200).json({ GoalId: parseInt(req.params.goalId) });
+  } catch (err) {
+    console.log(err);
+    next(err);
+  }
+});
+
 module.exports = router;
