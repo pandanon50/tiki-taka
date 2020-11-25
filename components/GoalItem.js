@@ -1,10 +1,12 @@
 import React, { useCallback } from "react";
 import PropTypes from "prop-types";
 import { Collapse } from "antd";
+import { useDispatch } from "react-redux";
 import { DeleteOutlined } from "@ant-design/icons";
 import SuccessButton from "./SuccessButton";
 import DoneButton from "./DoneButton";
 import styled, { createGlobalStyle } from "styled-components";
+import { REMOVE_GOAL_REQUEST } from "../reducers/goal";
 
 const { Panel } = Collapse;
 
@@ -22,10 +24,14 @@ const Global = createGlobalStyle`
 `;
 
 const GoalItem = ({ goal }) => {
+  const dispatch = useDispatch();
   const { goalTitle, checkTotal, checkDone, id, startLine, endLine } = goal;
 
   const onClickRemove = useCallback(() => {
-    console.log("hi");
+    dispatch({
+      type: REMOVE_GOAL_REQUEST,
+      data: id,
+    });
   }, []);
 
   // const Icon = () => {
