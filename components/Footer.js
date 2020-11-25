@@ -94,6 +94,8 @@ const Footer = () => {
             visible={visible}
             onOk={handleOk}
             onCancel={handleCancel}
+            okText="확인"
+            cancelText="다시 입력"
           >
             <br />
             <div>{str}</div>
