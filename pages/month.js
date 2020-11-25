@@ -12,6 +12,7 @@ import { LOAD_MY_INFO_REQUEST } from "../reducers/user";
 import { LOAD_DATE_POST_REQUEST } from "../reducers/post";
 import Router from "next/router";
 import wrapper from "../store/configureStore";
+
 const MonthDiv = styled.div`
   border: 1px solid #f0f0f0;
   border-radius: 2px;
