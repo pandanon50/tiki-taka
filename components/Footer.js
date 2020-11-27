@@ -26,24 +26,28 @@ const Footer = () => {
     setVisible(false);
     const e = UpdateSpeech(ret);
     // console.log(UpdateSpeech(ret));
-    await dispatch(e);
-    // 모든 today 읽어주기
-    if (e.type === LOAD_DATE_POST_REQUEST) {
-      if (todos !== null && monthTodos === null) {
-        let a = todos.length;
-        for (let i = 0; i < a; i++) {
-          SpeechText(todos[i].content);
+    if (e != null) {
+      await dispatch(e);
+      // 모든 today 읽어주기
+      if (e.type === LOAD_DATE_POST_REQUEST) {
+        if (todos !== null && monthTodos === null) {
+          let a = todos.length;
+          for (let i = 0; i < a; i++) {
+            SpeechText(todos[i].content);
+          }
+          SpeechText("일정이 있습니다.");
+        } else if (todos === null && monthTodos !== null) {
+          let a = monthTodos.length;
+          for (let i = 0; i < a; i++) {
+            SpeechText(monthTodos[i].content);
+          }
+          SpeechText("일정이 있습니다.");
+        } else {
+          SpeechText("일정이 없습니다.");
         }
-        SpeechText("일정이 있습니다.");
-      } else if (todos === null && monthTodos !== null) {
-        let a = monthTodos.length;
-        for (let i = 0; i < a; i++) {
-          SpeechText(monthTodos[i].content);
-        }
-        SpeechText("일정이 있습니다.");
-      } else {
-        SpeechText("일정이 없습니다.");
       }
+    } else {
+      message.error("수행할수없는 기능이 없습니다.");
     }
     setStr("");
     clearRet();

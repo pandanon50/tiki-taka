@@ -51,7 +51,7 @@ export const UpdateSpeech = (te) => {
     window.alert("일정을 알려드리겠습니다.");
     return todoCall(te);
     console.log("todo call");
-  }
+  } else return null;
 
   //clearTextContent();
   //init_todo();
