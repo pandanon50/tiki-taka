@@ -25,8 +25,8 @@ const AppLayout = ({ children }) => {
   return (
     <div>
       <Row>
-        <Col xs={24} md={6}></Col>{" "}
-        <Col style={{ minHeight: "667px" }} xs={24} md={12}>
+        <Col xs={24} md={2}></Col>{" "}
+        <Col style={{ minHeight: "667px" }} xs={24} md={20}>
           {" "}
           <Today />
           <div>
@@ -51,7 +51,7 @@ const AppLayout = ({ children }) => {
           <div className="pageWrapper">{children}</div>
           <Footer />
         </Col>
-        <Col xs={24} md={6}></Col>
+        <Col xs={24} md={2}></Col>
       </Row>
     </div>
   );

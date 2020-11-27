@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useEffect } from "react";
 import AppLayout from "../components/AppLayout";
 import TodoItem from "../components/TodoItem";
-import { Calendar, message } from "antd";
+import { Calendar, message, Col, Row } from "antd";
 import styled from "styled-components";
 import moment from "moment";
 import axios from "axios";
@@ -50,20 +50,26 @@ const month = () => {
 
   return (
     <AppLayout>
-      <MonthDiv style={{ marginBottom: "15px" }}>
-        <Calendar
-          value={value}
-          onSelect={onSelectDate}
-          fullscreen={false}
-          onPanelChange={onPanelChange}
-        />
-      </MonthDiv>
-      <TodosWrapper className="todosWrapper">
-        {monthTodos &&
-          monthTodos.map((post) => (
-            <TodoItem key={post.id} post={post} month={true} />
-          ))}
-      </TodosWrapper>
+      <Row gutter={5}>
+        <Col xs={24} md={12}>
+          <MonthDiv style={{ marginBottom: "15px" }}>
+            <Calendar
+              value={value}
+              onSelect={onSelectDate}
+              fullscreen={false}
+              onPanelChange={onPanelChange}
+            />
+          </MonthDiv>
+        </Col>
+        <Col xs={24} md={12}>
+          <TodosWrapper className="todosWrapper">
+            {monthTodos &&
+              monthTodos.map((post) => (
+                <TodoItem key={post.id} post={post} month={true} />
+              ))}
+          </TodosWrapper>
+        </Col>
+      </Row>
       <Footer />
     </AppLayout>
   );

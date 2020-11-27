@@ -6,7 +6,7 @@ import axios from "axios";
 import styled from "styled-components";
 import moment from "moment";
 import { useSelector, useDispatch } from "react-redux";
-import { Modal, Button } from "antd";
+import { Modal, Button, Col, Row } from "antd";
 import Router from "next/router";
 import { END } from "redux-saga";
 //import LoginForm from "../components/LoginForm";
@@ -58,10 +58,14 @@ const Todo = () => {
         <TodoForm />
       </div>
       <TodosWrapper className="todosWrapper">
-        {todos &&
-          todos.map((post) => (
-            <TodoItem key={post.id} post={post} month={false} />
-          ))}
+        <Row gutter={6}>
+          {todos &&
+            todos.map((post) => (
+              <Col xs={24} md={12} lg={8}>
+                <TodoItem key={post.id} post={post} month={false} />
+              </Col>
+            ))}
+        </Row>
       </TodosWrapper>
     </AppLayout>
   );
