@@ -28,6 +28,7 @@ export const initialState = {
   checkItem: null,
   index: 0,
   checkTodos: null,
+  callItem: null,
 };
 
 export const ADD_POST_REQUEST = "ADD_POST_REQUEST";
@@ -141,6 +142,7 @@ const reducer = (state = initialState, action) => {
         draft.datePostLoading = false;
         draft.datePostDone = true;
         draft.monthTodos = action.data;
+        draft.callItem = action.data;
         break;
       case LOAD_DATE_POST_FAILURE:
         draft.datePostLoading = false;

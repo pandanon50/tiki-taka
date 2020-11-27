@@ -14,7 +14,7 @@ export const UpdateSpeech = (te) => {
     te[te.length - 2] == "등록해" ||
     te[te.length - 3] == "등록"
   ) {
-    window.alert("일정이 등록되었습니다.");
+    //window.alert("일정이 등록되었습니다.");
     return todoIns(te);
 
     console.log("insert");
@@ -25,7 +25,7 @@ export const UpdateSpeech = (te) => {
     te[te.length - 3] == "삭제" ||
     te[te.length - 2] == "지워"
   ) {
-    window.alert("일정이 삭제되었습니다.");
+    //window.alert("일정이 삭제되었습니다.");
     return todoDel(te);
     console.log("delete");
   }
@@ -36,19 +36,19 @@ export const UpdateSpeech = (te) => {
     te[te.length - 3] == "완료" ||
     te[te.length - 2] == "체크"
   ) {
-    window.alert("일정을 완료하였습니다.");
+    //window.alert("일정을 완료하였습니다.");
     return todoCheck(te, true);
     console.log("iscom true");
   }
   //complete cancel
   if (te[te.length - 2] == "취소해" || te[te.length - 3] == "취소") {
-    window.alert("일정을 미완료하였습니다.");
+    //window.alert("일정을 미완료하였습니다.");
     return todoCheck(te, false);
     console.log("iscom cancel");
   }
   //read
   if (te[te.length - 2] == "알려" || te[te.length - 2] == "읽어") {
-    window.alert("일정을 알려드리겠습니다.");
+    //window.alert("일정을 알려드리겠습니다.");
     return todoCall(te);
     console.log("todo call");
   } else return null;

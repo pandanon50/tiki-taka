@@ -61,7 +61,7 @@ const Todo = () => {
         <Row gutter={6}>
           {todos &&
             todos.map((post) => (
-              <Col xs={24} md={12} lg={8}>
+              <Col xs={24} md={12} lg={8} key={post.id}>
                 <TodoItem key={post.id} post={post} month={false} />
               </Col>
             ))}

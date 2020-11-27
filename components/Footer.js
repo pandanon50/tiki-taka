@@ -14,11 +14,12 @@ import { ret, recognition, clearRet } from "../Speech/speechStart";
 import { HomeOutlined, AudioOutlined, UserOutlined } from "@ant-design/icons";
 import { SpeechText } from "../Speech/Text2Speech";
 import Router from "next/router";
+import Axios from "axios";
 
 const Footer = () => {
   const dispatch = useDispatch();
   const { me } = useSelector((state) => state.user);
-  const { todos, monthTodos, findItem } = useSelector((state) => state.post);
+  const { todos, monthTodos, callItem } = useSelector((state) => state.post);
   const [visible, setVisible] = useState(false);
   const [str, setStr] = useState("");
 
@@ -27,24 +28,21 @@ const Footer = () => {
     const e = UpdateSpeech(ret);
     // console.log(UpdateSpeech(ret));
     if (e != null) {
-      await dispatch(e);
-      // 모든 today 읽어주기
-      if (e.type === LOAD_DATE_POST_REQUEST) {
-        if (todos !== null && monthTodos === null) {
-          let a = todos.length;
-          for (let i = 0; i < a; i++) {
-            SpeechText(todos[i].content);
+      const hi = dispatch(e);
+      // console.log(hi);
+      if (hi.type === LOAD_DATE_POST_REQUEST) {
+        await Axios.post("/posts", { month: hi.data }).then((result) => {
+          // console.log(result);
+          if (result.data.length !== 0) {
+            let a = result.data.length;
+            for (let i = 0; i < a; i++) {
+              SpeechText(result.data[i].content);
+            }
+            SpeechText("일정이 있습니다.");
+          } else {
+            SpeechText("일정이 없습니다.");
           }
-          SpeechText("일정이 있습니다.");
-        } else if (todos === null && monthTodos !== null) {
-          let a = monthTodos.length;
-          for (let i = 0; i < a; i++) {
-            SpeechText(monthTodos[i].content);
-          }
-          SpeechText("일정이 있습니다.");
-        } else {
-          SpeechText("일정이 없습니다.");
-        }
+        });
       }
     } else {
       message.error("수행할수없는 기능이 없습니다.");
