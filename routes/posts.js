@@ -3,9 +3,9 @@ const moment = require("moment");
 const router = express.Router();
 const { Post, User } = require("../models");
 const { isLoggedIn } = require("./middlewares");
+const dayjs = require("dayjs");
 
-const today = moment();
-const value = today.format("YYYYMMDD");
+const value = dayjs().format("YYYYMMDD");
 
 router.get("/", isLoggedIn, async (req, res, next) => {
   // TODO 가져오기 LOAD_POST

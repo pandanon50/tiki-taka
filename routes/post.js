@@ -4,11 +4,6 @@ const router = express.Router();
 const { Post, User } = require("../models");
 const { isLoggedIn } = require("./middlewares");
 
-const today = moment();
-console.log(today);
-const value = today.format("YYYYMMDD");
-console.log(value);
-
 router.post("/", isLoggedIn, async (req, res, next) => {
   try {
     const post = await Post.create({
