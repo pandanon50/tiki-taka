@@ -28,21 +28,21 @@ Backend :  Mysql 과 sequalize로 js환경에서 DB 연결 및 Express 활용하
 #### 1. TODO 페이지
 - 음성인식을 통한 일정등록
     <div>
-    <img width="200" src="https://user-images.githubusercontent.com/60589856/100239253-89d3c100-2f74-11eb-98de-7ece89d0e89c.gif"></img>
+    <img width="250" src="https://user-images.githubusercontent.com/60589856/100239253-89d3c100-2f74-11eb-98de-7ece89d0e89c.gif"></img>
     </div>
     </br>
 
 - 음성인식을 통한 일정삭제,완료
     
     <div>
-    <img width="200" src="https://user-images.githubusercontent.com/60589856/100241247-d6200080-2f76-11eb-8194-3c4736bbcc38.gif"></img>
+    <img width="250" src="https://user-images.githubusercontent.com/60589856/100241247-d6200080-2f76-11eb-8194-3c4736bbcc38.gif"></img>
     </div>
     </br>
 #### 2.  MONTH 페이지
 
 - 캘린더 형식의 월별 일정 검색
     <div>
-    <img width="200" src="https://user-images.githubusercontent.com/60589856/100241383-f94ab000-2f76-11eb-9277-9cb68021cbe4.gif"></img>
+    <img width="250" src="https://user-images.githubusercontent.com/60589856/100241383-f94ab000-2f76-11eb-9277-9cb68021cbe4.gif"></img>
     </div>
     </br>
 
