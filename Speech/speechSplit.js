@@ -32,7 +32,6 @@ export const getToDoDate = (te) => {
     dt = 1;
   } else if (te[0] == "어제") {
     tdate[0] = today.getFullYear();
-
     tdate[1] = today.getMonth() + 1;
     tdate[2] = today.getDate() - 1;
   } else if (te[0] == "오늘") {
@@ -59,6 +58,14 @@ export const getToDoDate = (te) => {
     tdate[2] = today.getDate();
     dt = 0;
   }
+
+  console.log(tdate);
+  console.log(tdate[0]);
+  console.log(tdate[1]);
+  console.log(tdate[2]);
+
+  if (tdate[1] <= "9" && tdate[1] >= "0") tdate[1] = `0${tdate[1]}`;
+  if (tdate[2] <= "9" && tdate[2] >= "0") tdate[2] = `0${tdate[2]}`;
 
   let TODOS_LS = `${tdate[0]}${tdate[1]}${tdate[2]}`;
   console.log(TODOS_LS);
