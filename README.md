@@ -3,6 +3,7 @@
 ### 프로젝트 요약
 
 - 음성인식 (Speech To Text API) 를 이용한 TODO 리스트
+back Repo => https://github.com/pandanon50/team-back
 ---
 
 ### 개발환경
